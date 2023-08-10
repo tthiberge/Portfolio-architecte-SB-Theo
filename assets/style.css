@@ -125,6 +125,43 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+	margin-bottom: 2em;
+}
+
+.filters-unclicked {
+	font-family: 'Syne';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+  padding: 9px 15px;
+  border-radius: 60px;
+  border: 1px solid #1D6154;
+	color: #1D6154;
+  background-color: white;
+}
+
+.filters-clicked {
+  font-family: 'Syne';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+  padding: 9px 15px;
+  border-radius: 60px;
+  border: 1px solid #1D6154;
+  background-color: #1D6154;
+  color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -185,4 +222,3 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
-

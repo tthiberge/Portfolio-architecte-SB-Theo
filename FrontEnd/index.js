@@ -25,6 +25,28 @@ console.log(firstWork.title);
 console.log(firstWork.imageUrl);
 console.log(firstWork.categoryId); // Pour plus tard, faire appel aussi aux catégories pour matcher le categoryId
 
+// Balayer tous les éléments récupérés sur l'API
+for (let i = 0; i < worksData.length; i++) {
+  const work = worksData[i];
+  console.log(work);
+  // Creating the elements of my card
+  const figureWork = document.createElement("figure")
+  const imgWork = document.createElement("img")
+  imgWork.src = work.imageUrl
+  imgWork.alt = work.title
+  console.log(imgWork);
+  const figCaptionWork = document.createElement("figcaption")
+  figCaptionWork.innerText = work.title
+
+  // Appending the elemnts of my card
+
+  galleryWorks.appendChild(figureWork)
+  figureWork.appendChild(imgWork)
+  figureWork.appendChild(figCaptionWork)
+
+}
+
+
 // Creating the elements of my card
 const figureWork = document.createElement("figure")
 const imgWork = document.createElement("img")

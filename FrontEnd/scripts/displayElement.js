@@ -1,4 +1,4 @@
-console.log("Tu es dans createHTMLElement.js");
+console.log("Tu es dans displayElement.js");
 
 export function displayGridWorks(arrayOfWorks) {
   // Selecting my gallery of works
@@ -24,4 +24,19 @@ export function displayGridWorks(arrayOfWorks) {
     figureWork.appendChild(figCaptionWork)
 }
 
+}
+
+export async function displayFilters(arrayOfCategories) {
+  const filters = document.querySelector(".filters")
+
+  const categoriesNames = arrayOfCategories.map(category => category.name)
+
+  for (let i = 0; i < categoriesNames.length; i++) {
+    const category = categoriesNames[i];
+
+    const filterItem = document.createElement("button")
+    filterItem.innerText = category
+    filterItem.classList.add("filters-unclicked")
+    filters.appendChild(filterItem)
+  }
 }

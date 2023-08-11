@@ -39,4 +39,9 @@ export async function displayFilters(arrayOfCategories) {
     filterItem.classList.add("filters-unclicked")
     filters.appendChild(filterItem)
   }
+
+  const tousButton = document.querySelectorAll(".filters-unclicked")[0]
+
+  tousButton.classList.remove("filters-unclicked")
+  tousButton.classList.add("filters-clicked")
 }

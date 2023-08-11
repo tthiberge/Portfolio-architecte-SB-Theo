@@ -3,6 +3,7 @@ console.log("Tu es dans index.js");
 // Importer les fonctions dont j'ai besoin
 import { getWorksData, getCategoriesData } from "./api-fetch.js";
 import { displayGridWorks, displayFilters } from "./displayElement.js";
+import { setFilterListener } from "./listeners.js";
 
 // Récupérer mes travaux
 let worksData = await getWorksData()
@@ -21,35 +22,39 @@ displayFilters(categoriesData)
 
 
 // Déployer les eventlisteners sur tous ces boutons
-const filterItems = document.querySelectorAll(".filters button")
+
+setFilterListener(displayGridWorks, worksData);
 
 
-for (let i = 0; i < filterItems.length; i++) {
-  const filterItem = filterItems[i];
+// const filterItems = document.querySelectorAll(".filters button")
 
-  filterItem.addEventListener("click", function (event) {
 
-    if (event.target.innerText === "Tous") {
-      displayGridWorks(worksData)
+// for (let i = 0; i < filterItems.length; i++) {
+//   const filterItem = filterItems[i];
 
-    } else {
-      const worksFiltered = worksData.filter(function (work) {
-        return work.category.name === event.target.innerText
-      })
-      displayGridWorks(worksFiltered)
-    }
+//   filterItem.addEventListener("click", function (event) {
+//     // Boucle pour réinitialiser les couleurs de tous les filtres à vert sur blanc
+//     for (let i = 0; i < filterItems.length; i++) {
+//       filterItems[i].classList.remove("filters-clicked");
+//       filterItems[i].classList.add("filters-unclicked");
+//     }
 
-    // Boucle pour réinitialiser les couleurs de tous les filtres à vert sur blanc
-    for (let i = 0; i < filterItems.length; i++) {
-      filterItems[i].classList.remove("filters-clicked");
-      filterItems[i].classList.add("filters-unclicked");
-    }
+//     // Pour le filtre sur lequel je viens de cliquer, je mets blanc sur vert
+//     filterItem.classList.remove("filters-unclicked")
+//     filterItem.classList.add("filters-clicked")
 
-    // Pour le filtre sur lequel je viens de cliquer, je mets blanc sur vert
-    filterItem.classList.remove("filters-unclicked")
-    filterItem.classList.add("filters-clicked")
-  })
-}
+//     if (event.target.innerText === "Tous") {
+//       displayGridWorks(worksData)
+
+//     } else {
+//       const worksFiltered = worksData.filter(function (work) {
+//         return work.category.name === event.target.innerText
+//       })
+//       displayGridWorks(worksFiltered)
+//     }
+
+//   })
+// }
 
 
 

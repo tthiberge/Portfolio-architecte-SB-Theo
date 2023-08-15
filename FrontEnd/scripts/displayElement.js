@@ -45,3 +45,65 @@ export async function displayFilters(arrayOfCategories) {
   tousButton.classList.remove("filters-unclicked")
   tousButton.classList.add("filters-clicked")
 }
+
+export function displayModifyIfConnected () {
+  if (window.localStorage.getItem("token")) {
+    const token = JSON.parse(window.localStorage.getItem("token"))
+    console.log(token)
+    if (token  !== null) {
+      const btnLogout = document.querySelector(".logout")
+      btnLogout.classList.remove("invisible")
+
+      const btnModify = document.querySelectorAll(".invisible")
+
+      for (const btn of btnModify) {
+        btn.classList.remove("invisible")
+      }
+    } else {
+      console.log("Je ne display pas les boutons modifier car erreur de comparaison de token");
+    }
+  }
+}
+
+export function displayLogoutIfConnected () {
+  if (window.localStorage.getItem("token")) {
+    const token = JSON.parse(window.localStorage.getItem("token"))
+    if (token  !== null) {
+      const btnLogout = document.querySelector(".logout")
+      btnLogout.classList.remove("invisible")
+    } else {
+      console.log("Je ne display pas le bouton logout car erreur de comparaison de token");
+    }
+  }
+}
+
+export function removeFiltersIfConnected () {
+  if (window.localStorage.getItem("token")) {
+    const token = JSON.parse(window.localStorage.getItem("token"))
+    if (token  !== null) {
+      const filters = document.querySelector(".filters")
+      filters.classList.add("invisible")
+    } else {
+      console.log("Je laisse les boutons de filtrage car erreur de comparaison de token");
+    }
+  }
+}
+
+
+export async function removeModify() {
+  const btnModify = document.querySelectorAll(".modify-invisible")
+
+  for (const btn of btnModify) {
+    btn.classList.add("modify-invisible")
+  }
+}
+
+export async function removeLogout() {
+  const btnLogout = document.querySelector(".logout")
+  btnLogout.classList.add("invisible")
+}
+
+export async function displayErrorMessageLogin(error) {
+  const warningMessage = document.querySelector(".warning")
+  warningMessage.innerText = error.message
+}

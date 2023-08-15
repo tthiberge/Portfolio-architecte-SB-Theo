@@ -30,3 +30,32 @@ export async function setFilterListener(displayFunction, arrayOfWorks) {
     })
   }
 }
+
+export async function setLogoutListnenerfromHomepage(removeModify, removeLogout) {
+  const btnLogout = document.querySelector(".logout")
+  console.log(btnLogout);
+
+  btnLogout.addEventListener("click", function() {
+    if (window.localStorage.getItem("token")) {
+      window.localStorage.removeItem("token")
+    }
+
+    removeModify()
+    removeLogout()
+    location.reload()
+  })
+}
+
+export async function setLogoutListnenerfromLogin(removeLogout) {
+  const btnLogout = document.querySelector(".logout")
+  console.log(btnLogout);
+
+  btnLogout.addEventListener("click", function() {
+    if (window.localStorage.getItem("token")) {
+      window.localStorage.removeItem("token")
+    }
+
+    removeLogout()
+    location.reload()
+  })
+}

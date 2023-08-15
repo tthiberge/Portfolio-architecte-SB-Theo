@@ -8,26 +8,32 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
 	<link rel="stylesheet" href="./assets/style.css">
   <script type="module" src="scripts/index.js" defer></script>
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li>projets</li>
+  <a href="/index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+  <nav>
+    <ul>
+      <a href="/index.html"><li>projets</li></a>
 			<li>contact</li>
 			<li><a href="/login.html">login</a></li>
+			<li><a href="#" class="logout invisible">log OUT</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
 <main>
 	<section id="introduction">
-		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
+    <div>
+      <figure>
+        <img src="./assets/images/sophie-bluel.png" alt="">
+      </figure>
+      <a href="#" class="introduction-modify"><p class="invisible">
+        <i class="fa-solid fa-pen-to-square"></i> modifier </p></a>
+    </div>
 		<article>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
@@ -36,7 +42,11 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+    <div class="portfolio-subsection">
+      <h2>Mes Projets</h2>
+      <a href="#" class="works-modify"><p class="invisible">
+        <i class="fa-solid fa-pen-to-square"></i> modifier </p></a>
+    </div>
     <div class="filters">
       <button class="filters-unclicked">Tous</button>
     </div>

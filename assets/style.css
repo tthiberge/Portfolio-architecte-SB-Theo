@@ -241,3 +241,41 @@ a:visited {
   height: 80vh;
   padding-top: 5vh;
 }
+
+.warning {
+  color: #d50000;
+  font-size: medium;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.portfolio-subsection {
+  position: relative;
+}
+
+.invisible {
+  display: none;
+}
+
+.works-modify {
+  font-family: 'Work Sans' ;
+	font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  position: absolute;
+  top: 8px;
+  right: 11vw;
+}
+
+.introduction-modify {
+  display: block;
+  margin: auto;
+	width: 80%;
+  margin-top: 8px;
+
+}
+
+.fa-pen-to-square {
+  margin-right: 8px;
+}

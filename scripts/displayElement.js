@@ -68,7 +68,7 @@ export function displayModifyIfConnected () {
 export function displayLogoutIfConnected () {
   if (window.localStorage.getItem("token")) {
     const token = JSON.parse(window.localStorage.getItem("token"))
-    if (token  !== null) {
+    if (token  !== null || token !== undefined) {
       const btnLogout = document.querySelector(".logout")
       btnLogout.classList.remove("invisible")
     } else {

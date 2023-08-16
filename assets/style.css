@@ -265,7 +265,8 @@ a:visited {
   font-weight: 400;
   position: absolute;
   top: 8px;
-  right: 11vw;
+  right: 18vw;
+  cursor: pointer;
 }
 
 .introduction-modify {

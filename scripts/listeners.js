@@ -59,3 +59,78 @@ export async function setLogoutListnenerfromLogin(removeLogout) {
     location.reload()
   })
 }
+
+export async function handleFormSubmit(event) {
+  event.preventDefault()
+
+  try {
+    // Récupérer les champs du formulaire
+    const loginDetails = getLoginDetailsFromForm(event.target)
+
+    // Envoyer la requête et récupérer la réponse
+    const loginResponse = await loginUser(loginDetails)
+    console.log(loginResponse);
+
+    // Enregistrer le token dans le localStorage
+    processLoginResponse(loginResponse)
+
+    // Renvoyer vers la page projet
+    window.location.href = 'http://localhost:5501/index.html'
+
+
+  } catch (error) {
+    console.log(error.message);
+    displayErrorMessageLogin(error)
+  }
+}
+
+// Fonction réutilisable de vérification de mes deux inputs de connexion
+function checkInput(input) {
+  // Si le champ est vide, on lance une exception
+  if (input.value === "") {
+      throw new Error(`Le champ ${input.name} est vide`)
+  }
+}
+
+function getLoginDetailsFromForm(formElement){
+  const email = formElement.querySelector("[name=email]")
+  const password = formElement.querySelector("[name=password]")
+  checkInput(email)
+  checkInput(password)
+
+  return {
+    email: email.value,
+    password: password.value
+  }
+}
+
+async function loginUser(loginDetails) {
+  const response = await fetch("http://localhost:5678/api/users/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(loginDetails)
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    throw new Error(`La requête n'a pu aboutir. \nLe serveur indique '${errorData.message}'. \nMerci de vérifier vos identifiants et de cliquer sur 'Mot de passe oublié' au besoin`)
+  }
+
+  return response.json()
+}
+
+function processLoginResponse(loginResponse) {
+   // Stocker ID et token dans localstorage
+   const tokenStringified = JSON.stringify(loginResponse.token)
+   window.localStorage.setItem("token", tokenStringified)
+   console.log("yeah");
+
+   // Pour vérifier que je l'ai bien (même si je peux le voir dans l'inspecteur)
+   const tokenSaved = window.localStorage.getItem("token")
+   console.log(`There is a saved token whose value is ${tokenSaved}`);
+}
+
+export function displayErrorMessageLogin(error) {
+  const warningMessage = document.querySelector(".warning")
+  warningMessage.innerText = error.message
+}

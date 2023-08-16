@@ -25,46 +25,47 @@ export function displayGridWorks(arrayOfWorks) {
   }
 }
 
-export function displayGridWorksInModal(arrayOfWorks) {
-  // Selecting my gallery of works
-  const modalGrid = document.querySelector(".modal-grid")
-  modalGrid.innerHTML = ""
+// export function displayGridWorksInModal(arrayOfWorks) {
+//   // Selecting my gallery of works
+//   const modalGrid = document.querySelector(".modal-grid")
+//   modalGrid.innerHTML = ""
 
-  // Balayer tous les éléments récupérés sur l'API
-  for (const work in arrayOfWorks) {
+//   // Balayer tous les éléments récupérés sur l'API
+//   for (const work in arrayOfWorks) {
 
-    // Creating the elements of my card
-    const figureWork = document.createElement("figure")
-    figureWork.classList.add("figure-work")
-    const imgWork = document.createElement("img")
-    imgWork.src = "assets/images/abajour-tahina.png"
-    imgWork.alt = work.title
-    const figCaptionWork = document.createElement("figcaption")
-    figCaptionWork.innerText = "éditer"
+//     // Creating the elements of my card
+//     const figureWork = document.createElement("figure")
+//     figureWork.classList.add("figure-work")
+//     const imgWork = document.createElement("img")
+//     imgWork.src = "assets/images/abajour-tahina.png"
+//     imgWork.alt = work.title
+//     imgWork.classList.add("img-work")
+//     const figCaptionWork = document.createElement("figcaption")
+//     figCaptionWork.innerText = "éditer"
 
-    // const workIcons = document.createElement("div")
-    // workIcons.classList.add("work-icons")
+//     // const workIcons = document.createElement("div")
+//     // workIcons.classList.add("work-icons")
 
-    const trashIcon = document.createElement("p")
-    trashIcon.classList.add("trash-icon")
+//     const trashIcon = document.createElement("p")
+//     trashIcon.classList.add("trash-icon")
 
-    const zoomIcon = document.createElement("p")
-    zoomIcon.classList.add("zoom-icon")
-
-
-    // Appending the elemnts of my card
-
-    modalGrid.appendChild(figureWork)
-    figureWork.appendChild(imgWork)
-    figureWork.appendChild(figCaptionWork)
-    figureWork.appendChild(trashIcon)
-    figureWork.appendChild(zoomIcon)
+//     const zoomIcon = document.createElement("p")
+//     zoomIcon.classList.add("zoom-icon")
 
 
-  }
+//     // Appending the elemnts of my card
+
+//     modalGrid.appendChild(figureWork)
+//     figureWork.appendChild(imgWork)
+//     figureWork.appendChild(figCaptionWork)
+//     figureWork.appendChild(trashIcon)
+//     figureWork.appendChild(zoomIcon)
 
 
-}
+//   }
+
+
+// }
 
 
 export async function displayFilters(arrayOfCategories) {

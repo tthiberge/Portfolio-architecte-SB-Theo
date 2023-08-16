@@ -103,7 +103,3 @@ export async function removeLogout() {
   btnLogout.classList.add("invisible")
 }
 
-export async function displayErrorMessageLogin(error) {
-  const warningMessage = document.querySelector(".warning")
-  warningMessage.innerText = error.message
-}

@@ -134,3 +134,5 @@ export function displayErrorMessageLogin(error) {
   const warningMessage = document.querySelector(".warning")
   warningMessage.innerText = error.message
 }
+
+

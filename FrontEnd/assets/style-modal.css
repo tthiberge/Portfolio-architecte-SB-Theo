@@ -48,7 +48,7 @@
   margin-bottom: 50px;
 }
 
-.modal-grid {
+/* .modal-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 8px;
@@ -56,6 +56,12 @@
 
 .figure-work {
   position: relative;
+  width: 60px;
+}
+
+.img-work {
+  width: 100%;
+  height: 84px;
 }
 
 .trash-icon {
@@ -76,4 +82,4 @@
   font-size: 11px;
   padding: 4px;
   background-color: black;
-}
+} */

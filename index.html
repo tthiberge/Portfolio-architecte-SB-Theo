@@ -10,7 +10,9 @@
 	<meta name="description" content="">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/style-modal.css">
   <script type="module" src="scripts/index.js" defer></script>
+  <script type="module" src="scripts/modal.js" defer></script>
 </head>
 <body>
 <header>
@@ -44,8 +46,11 @@
 	<section id="portfolio">
     <div class="portfolio-subsection">
       <h2>Mes Projets</h2>
-      <a href="#" class="works-modify"><p class="invisible">
-        <i class="fa-solid fa-pen-to-square"></i> modifier </p></a>
+      <a href="#" class="works-modify openModal">
+        <p class="invisible">
+          <i class="fa-solid fa-pen-to-square"></i> modifier
+        </p>
+      </a>
     </div>
     <div class="filters">
       <button class="filters-unclicked">Tous</button>
@@ -66,6 +71,16 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+
+  <!-- Modal Structure -->
+  <aside class="modal" id="simpleModal">
+    <div class="modal-content">
+      <i class="fa-solid fa-xmark closeBtn" id="closeModalBtn"></i>
+      <!-- <span class="" ">&times;</span> -->
+      <p class="modal-title">Galerie Photo</p>
+      <div class="modal-grid">Here I will display my works grid</p>
+    </div>
+  </aside>
 </main>
 
 <footer>

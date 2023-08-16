@@ -1,0 +1,79 @@
+/* Modal base styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  /* padding-block: 26px;
+  padding-inline: 30px; */
+  width: 630px;
+  max-width: 60vw;
+  height: 731px;
+  border-radius: 10px;
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); */
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+.closeBtn {
+  color: #000;
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 26px;
+  right: 30px;
+}
+
+.modal-title {
+  color: #000;
+  text-align: center;
+  font-family: Work Sans;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 50px;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.figure-work {
+  position: relative;
+}
+
+.trash-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  color: white;
+  font-size: 11px;
+  padding: 4px;
+  background-color: black;
+}
+
+.zoom-icon {
+  position: absolute;
+  top: 6px;
+  right: 18px;
+  color: white;
+  font-size: 11px;
+  padding: 4px;
+  background-color: black;
+}

@@ -2,9 +2,9 @@ console.log("Tu es dans index.js");
 
 // Importer les fonctions dont j'ai besoin
 import { getWorksData, getCategoriesData } from "./api-fetch.js";
-import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout, displayGridWorksInModal } from "./displayElement.js";
-import { setFilterListener, setLogoutListnenerfromHomepage } from "./listeners.js";
-import { setModal } from "./modal.js";
+import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout } from "./displayElement.js";
+import { setFilterListener, setLogoutListnenerfromHomepage,  } from "./listeners.js";
+import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal } from "./modal.js";
 
 
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)
@@ -36,7 +36,9 @@ setLogoutListnenerfromHomepage (removeModify, removeLogout)
 const modal = document.getElementById('simpleModal');
 setModal(modal)
 
-// Populer la modal
-// const modalGrid = document.querySelector(".modal-grid")
-// console.log(modalGrid);
+// Populer la modal + mettre listener hover 2ème icon
 displayGridWorksInModal(worksData)
+const modalFigures = document.querySelectorAll(".figure-work")
+setListenerZoomIcon(modalFigures)
+const modalContent = document.querySelector(".modal-content")
+displayBottomOfModal(modalContent)

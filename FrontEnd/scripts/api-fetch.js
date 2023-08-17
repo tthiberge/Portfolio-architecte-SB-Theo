@@ -67,18 +67,29 @@ function getToken() {
 export async function deleteWork(id) {
   const token = getToken()
 
-  const responseDelete = await fetch(`http://localhost:5678/api/works/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+
+  try {
+    const responseDelete = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(responseDelete.ok);
+    console.log(responseDelete);
+
+    if (responseDelete.ok) {
+      if (responseDelete.status !== 204) {
+          const resultDelete = await responseDelete.json();
+          console.log(resultDelete);
+      } else {
+          console.log('Resource deleted successfully, no content returned.');
+      }
+    } else {
+        console.error('Failed to delete the resource.');
     }
-  })
-
-  console.log(responseDelete.ok);
-
-  console.log(responseDelete);
-
-
-
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
 }

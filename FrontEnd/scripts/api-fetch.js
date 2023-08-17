@@ -1,14 +1,12 @@
 console.log("Tu es dans api-fetch.js");
 
+import { displayGridWorks} from "./displayElement.js";
+import { displayGridWorksInModal, setListenerTrashIcon } from "./modal.js";
+
+let worksData
+
 
 export async function getWorksData() {
-
-  let worksData = window.localStorage.getItem("works")
-
-  if (worksData === null) {
-    // Dans ce cas, appel à l'API
-    console.log("Le localStorage des travaux était vide, il a fallu fetcher l'API");
-
     const responseWorks = await fetch("http://localhost:5678/api/works")
     worksData = await responseWorks.json()
     console.log(worksData);
@@ -20,16 +18,8 @@ export async function getWorksData() {
     window.localStorage.setItem("works", works)
 
     return worksData
-
-  } else {
-    // S'il y a quelque chose dans le localStorage, je le rends lisible
-    console.log("J'ai trouvé qqch dans le localStorage pour les Travaux, je n'ai pas appelé l'API");
-
-    worksData = JSON.parse(worksData)
-    return worksData
-  }
 }
-// => ça a l'air de fonctionner car dans la console, je n'ai plus le console.log du if
+
 
 
 export async function getCategoriesData() {
@@ -61,6 +51,7 @@ export async function getCategoriesData() {
 }
 
 function getToken() {
+  // Peut-être gérer à terme au cas où le token ait expiré ou soit null
   return JSON.parse(window.localStorage.getItem("token"))
 }
 
@@ -76,19 +67,24 @@ export async function deleteWork(id) {
         'Content-Type': 'application/json'
       }
     })
-    console.log(responseDelete.ok);
-    console.log(responseDelete);
+    // console.log(responseDelete.ok);
+    // console.log(responseDelete);
 
     if (responseDelete.ok) {
-      if (responseDelete.status !== 204) {
-          const resultDelete = await responseDelete.json();
-          console.log(resultDelete);
-      } else {
-          console.log('Resource deleted successfully, no content returned.');
+      if (responseDelete.status === 204){
+        console.log('Resource deleted successfully, no content returned.');
       }
-    } else {
-        console.error('Failed to delete the resource.');
     }
+
+    await getWorksData()
+    console.log(worksData);
+    displayGridWorks(worksData)
+    displayGridWorksInModal(worksData)
+    const modalContent = document.querySelector(".modal-content")
+    const trashIcons = modalContent.querySelectorAll(".trash-icon")
+    setListenerTrashIcon(trashIcons)
+
+
   } catch (error) {
     console.error('Error occurred:', error);
   }

@@ -10,7 +10,7 @@
   z-index: 1;
 }
 
-.modal-content {
+.modal-content, .modal-content-2 {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -116,7 +116,8 @@ export function displayBottomOfModal(modalContent) {
   const btnAddPicture = document.createElement("input")
   btnAddPicture.classList.add("modal-add-picture")
   btnAddPicture.value = "Ajouter une photo"
-  btnAddPicture.disabled = true
+  // btnAddPicture.disabled = true
+  // Abled sinon je peux pas faire mon listener dessus
 
 
   const btnDeleteGallery = document.createElement("p")

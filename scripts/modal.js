@@ -129,15 +129,16 @@ export function displayBottomOfModal(modalContent) {
 }
 
 export function setListenerTrashIcon(arrayOfTrashIcons) {
+
   arrayOfTrashIcons.forEach((trashIcon) => {
+    
     trashIcon.addEventListener("click", function(event) {
       const id = event.target.dataset.setId
+      console.log(id);
 
       deleteWork(id)
       // console.log(event.target.dataset.setId); // String pour info donc déjà sérialisé
       // console.log(window.localStorage.getItem("token"));
-
-
     })
   })
 }

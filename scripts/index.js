@@ -10,7 +10,7 @@ import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOf
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)
 displayModifyIfConnected()
 displayLogoutIfConnected()
-removeFiltersIfConnected()
+// removeFiltersIfConnected()
 
 // Récupérer mes travaux
 let worksData = await getWorksData()

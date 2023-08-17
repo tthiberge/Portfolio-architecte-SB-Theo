@@ -43,3 +43,25 @@ setListenerZoomIcon(modalFigures)
 const modalContent = document.querySelector(".modal-content")
 displayBottomOfModal(modalContent)
 setListenerTrashIcon(modalContent)
+
+
+
+const btnAddPicture = modalContent.querySelector(".modal-add-picture")
+console.log(btnAddPicture);
+const modalContent2 = document.querySelector(".modal-content-2")
+console.log(modalContent2);
+
+btnAddPicture.addEventListener("mouseover", function() {
+  console.log("inside");
+
+
+
+
+})
+btnAddPicture.addEventListener("mouseout", function() {
+  console.log("outside");
+
+
+
+
+})

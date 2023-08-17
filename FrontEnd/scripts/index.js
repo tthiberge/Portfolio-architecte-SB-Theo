@@ -4,7 +4,7 @@ console.log("Tu es dans index.js");
 import { getWorksData, getCategoriesData } from "./api-fetch.js";
 import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout } from "./displayElement.js";
 import { setFilterListener, setLogoutListnenerfromHomepage,  } from "./listeners.js";
-import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal } from "./modal.js";
+import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon } from "./modal.js";
 
 
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)
@@ -42,3 +42,6 @@ const modalFigures = document.querySelectorAll(".figure-work")
 setListenerZoomIcon(modalFigures)
 const modalContent = document.querySelector(".modal-content")
 displayBottomOfModal(modalContent)
+
+const trashIcons = modalContent.querySelectorAll(".trash-icon")
+setListenerTrashIcon(trashIcons)

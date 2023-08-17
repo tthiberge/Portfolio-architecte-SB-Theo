@@ -61,19 +61,22 @@ export async function getCategoriesData() {
 }
 
 function getToken() {
-  return window.localStorage.getItem("token")
+  return JSON.parse(window.localStorage.getItem("token"))
 }
 
 export async function deleteWork(id) {
   const token = getToken()
-  // console.log(id);
-  // console.log(token);
-  // console.log(`http://localhost:5678/api/works/${id}`);
-
 
   const responseDelete = await fetch(`http://localhost:5678/api/works/${id}`, {
-    headers: {Authentication: `Bearer ${token}`}
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
   })
+
+  console.log(responseDelete.ok);
+
   console.log(responseDelete);
 
 

@@ -132,7 +132,6 @@ export function setListenerTrashIcon(arrayOfTrashIcons) {
   arrayOfTrashIcons.forEach((trashIcon) => {
     trashIcon.addEventListener("click", function(event) {
       const id = event.target.dataset.setId
-      // token = window.localStorage.getItem("token")
 
       deleteWork(id)
       // console.log(event.target.dataset.setId); // String pour info donc déjà sérialisé

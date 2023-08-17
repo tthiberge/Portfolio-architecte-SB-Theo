@@ -74,6 +74,7 @@
 
 .figcaption-work {
   margin-top: 4px;
+  cursor: pointer;
 }
 
 .trash-icon, .zoom-icon {
@@ -92,12 +93,14 @@
   position: absolute;
   top: 6px;
   right: 6px;
+  cursor: pointer;
 }
 
 .zoom-icon {
   position: absolute;
   top: 6px;
   right: 26px;
+  cursor: pointer;
 }
 
 .modal-line {

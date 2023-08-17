@@ -42,6 +42,4 @@ const modalFigures = document.querySelectorAll(".figure-work")
 setListenerZoomIcon(modalFigures)
 const modalContent = document.querySelector(".modal-content")
 displayBottomOfModal(modalContent)
-
-const trashIcons = modalContent.querySelectorAll(".trash-icon")
-setListenerTrashIcon(trashIcons)
+setListenerTrashIcon(modalContent)

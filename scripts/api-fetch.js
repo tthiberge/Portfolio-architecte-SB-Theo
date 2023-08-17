@@ -1,7 +1,7 @@
 console.log("Tu es dans api-fetch.js");
 
 import { displayGridWorks} from "./displayElement.js";
-import { displayGridWorksInModal, setListenerTrashIcon } from "./modal.js";
+import { displayGridWorksInModal } from "./modal.js";
 
 let worksData
 
@@ -80,9 +80,6 @@ export async function deleteWork(id) {
     console.log(worksData);
     displayGridWorks(worksData)
     displayGridWorksInModal(worksData)
-    const modalContent = document.querySelector(".modal-content")
-    const trashIcons = modalContent.querySelectorAll(".trash-icon")
-    setListenerTrashIcon(trashIcons)
 
 
   } catch (error) {

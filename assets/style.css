@@ -194,7 +194,7 @@ margin: auto;
 	flex-direction: column;
 }
 
-.form input {
+.form input, .form select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -208,7 +208,9 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"], input[type="button"] {
+  display: flex;
+  justify-content: center;
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -262,7 +264,7 @@ a:visited {
   position: relative;
 }
 
-.invisible {
+.hidden {
   display: none;
 }
 

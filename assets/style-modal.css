@@ -1,6 +1,7 @@
 /* Modal base styles */
 .modal {
-  display: none;
+  /* A remettre */
+  /* display: none; */
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +11,7 @@
   z-index: 1;
 }
 
-.modal-content, .modal-content-2 {
+.modal-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,14 +20,27 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  /* padding-block: 26px;
-  padding-inline: 30px; */
   width: 630px;
   max-width: 60vw;
-  /* height: 621px; */
   height: 671px;
   border-radius: 10px;
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); */
+  padding-top: 60px;
+  padding-bottom: 48px;
+}
+
+.modal-content-2 {
+  /* display: none; */
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  width: 630px;
+  max-width: 60vw;
+  height: 671px;
+  border-radius: 10px;
   padding-top: 60px;
   padding-bottom: 48px;
 }
@@ -39,6 +53,16 @@
   position: absolute;
   top: 26px;
   right: 30px;
+}
+
+.arrowBackBtn {
+  color: #000;
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 26px;
+  left: 30px;
 }
 
 .modal-title {

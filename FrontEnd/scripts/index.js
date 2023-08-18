@@ -45,23 +45,38 @@ displayBottomOfModal(modalContent)
 setListenerTrashIcon(modalContent)
 
 
-
-const btnAddPicture = modalContent.querySelector(".modal-add-picture")
-console.log(btnAddPicture);
 const modalContent2 = document.querySelector(".modal-content-2")
-console.log(modalContent2);
+const btnAddPicture = modalContent.querySelector(".modal-add-picture")
+const btnArrowBack = document.querySelector(".arrowBackBtn")
 
-btnAddPicture.addEventListener("mouseover", function() {
-  console.log("inside");
+btnAddPicture.addEventListener("click", function() {
+  console.log("go");
+  modalContent2.classList.remove("hidden")
+  modalContent.classList.add("hidden")
+
+  const categoriesFormSection = document.getElementById("categorie")
+  const categoriesNames = categoriesData.map(category => category.name)
 
 
+  const pleaseSelect = document.createElement("option")
+  pleaseSelect.innerText = "Please select a category"
+  pleaseSelect.disabled = true
+  pleaseSelect.selected = true
+  categoriesFormSection.appendChild(pleaseSelect)
 
+
+  categoriesNames.forEach(categoryName => {
+    const category = document.createElement("option")
+    category.innerText = categoryName
+    categoriesFormSection.appendChild(category)
+    console.log(category);
+  })
 
 })
-btnAddPicture.addEventListener("mouseout", function() {
-  console.log("outside");
 
-
-
+btnArrowBack.addEventListener("click", function() {
+  console.log("back");
+  modalContent.classList.remove("hidden")
+  modalContent2.classList.add("hidden")
 
 })

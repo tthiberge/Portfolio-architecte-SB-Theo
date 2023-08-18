@@ -52,12 +52,12 @@ export function displayModifyIfConnected () {
     console.log(token)
     if (token  !== null) {
       const btnLogout = document.querySelector(".logout")
-      btnLogout.classList.remove("invisible")
+      btnLogout.classList.remove("hidden")
 
-      const btnModify = document.querySelectorAll(".invisible")
+      const btnModify = document.querySelectorAll(".hidden")
 
       for (const btn of btnModify) {
-        btn.classList.remove("invisible")
+        btn.classList.remove("hidden")
       }
     } else {
       console.log("Je ne display pas les boutons modifier car erreur de comparaison de token");
@@ -70,7 +70,7 @@ export function displayLogoutIfConnected () {
     const token = JSON.parse(window.localStorage.getItem("token"))
     if (token  !== null || token !== undefined) {
       const btnLogout = document.querySelector(".logout")
-      btnLogout.classList.remove("invisible")
+      btnLogout.classList.remove("hidden")
     } else {
       console.log("Je ne display pas le bouton logout car erreur de comparaison de token");
     }
@@ -82,7 +82,7 @@ export function removeFiltersIfConnected () {
     const token = JSON.parse(window.localStorage.getItem("token"))
     if (token  !== null) {
       const filters = document.querySelector(".filters")
-      filters.classList.add("invisible")
+      filters.classList.add("hidden")
     } else {
       console.log("Je laisse les boutons de filtrage car erreur de comparaison de token");
     }
@@ -91,14 +91,14 @@ export function removeFiltersIfConnected () {
 
 
 export async function removeModify() {
-  const btnModify = document.querySelectorAll(".modify-invisible")
+  const btnModify = document.querySelectorAll(".modify-hidden")
 
   for (const btn of btnModify) {
-    btn.classList.add("modify-invisible")
+    btn.classList.add("modify-hidden")
   }
 }
 
 export async function removeLogout() {
   const btnLogout = document.querySelector(".logout")
-  btnLogout.classList.add("invisible")
+  btnLogout.classList.add("hidden")
 }

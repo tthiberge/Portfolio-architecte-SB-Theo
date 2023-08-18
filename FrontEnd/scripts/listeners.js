@@ -33,7 +33,6 @@ export async function setFilterListener(displayFunction, arrayOfWorks) {
 
 export async function setLogoutListnenerfromHomepage(removeModify, removeLogout) {
   const btnLogout = document.querySelector(".logout")
-  console.log(btnLogout);
 
   btnLogout.addEventListener("click", function() {
     if (window.localStorage.getItem("token")) {

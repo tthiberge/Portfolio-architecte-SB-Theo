@@ -22,7 +22,7 @@
       <a href="/index.html"><li>projets</li></a>
 			<li>contact</li>
 			<li><a href="/login.html">login</a></li>
-			<li><a href="#" class="logout invisible">log OUT</a></li>
+			<li><a href="#" class="logout hidden">log OUT</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -33,7 +33,7 @@
       <figure>
         <img src="./assets/images/sophie-bluel.png" alt="">
       </figure>
-      <a href="#" class="introduction-modify"><p class="invisible">
+      <a href="#" class="introduction-modify"><p class="hidden">
         <i class="fa-solid fa-pen-to-square"></i> modifier </p></a>
     </div>
 		<article>
@@ -45,7 +45,7 @@
 	</section>
 	<section id="portfolio">
     <div class="portfolio-subsection">
-      <h2>Mes Projets <span class="invisible works-modify openModal"><i class="fa-solid fa-pen-to-square"></i> modifier</span></h2>
+      <h2>Mes Projets <span class="hidden works-modify openModal"><i class="fa-solid fa-pen-to-square"></i> modifier</span></h2>
       <!-- <p class="invisible works-modify openModal">
         <i class="fa-solid fa-pen-to-square"></i> modifier
       </p> -->
@@ -78,11 +78,21 @@
       <p class="modal-title">Galerie Photo</p>
       <div class="modal-grid"></p>
     </div>
-    <div class="modal-content-2 invisible" style="display: none;">
+
+    <div class="modal-content-2 hidden">
+      <i class="fa-solid fa-arrow-left arrowBackBtn" id="returnToModal"></i>
       <i class="fa-solid fa-xmark closeBtn" id="closeModalBtn2"></i>
       <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Ajout Photo</p>
-      <div class=""></p>
+      <section class="form">
+        <form action="#" method="post">
+          <label for="titre">Titre</label>
+          <input type="text" name="titre" id="titre" required>
+          <label for="categorie">Catégorie</label>
+          <select name="categorie" id="categorie" required>
+              <!-- <option value="select" disabled selected >Please select a category</option> -->
+        </form>
+      </section>
     </div>
   </aside>
 </main>

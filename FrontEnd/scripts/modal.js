@@ -114,6 +114,7 @@ export function displayBottomOfModal(modalContent) {
 
 
   const btnAddPicture = document.createElement("input")
+  btnAddPicture.setAttribute("type", "button")
   btnAddPicture.classList.add("modal-add-picture")
   btnAddPicture.value = "Ajouter une photo"
   // btnAddPicture.disabled = true

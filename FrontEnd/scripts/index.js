@@ -44,39 +44,43 @@ const modalContent = document.querySelector(".modal-content")
 displayBottomOfModal(modalContent)
 setListenerTrashIcon(modalContent)
 
-
+// Créer la deuxième modal et gérer l'interaction entre les deux
 const modalContent2 = document.querySelector(".modal-content-2")
 const btnAddPicture = modalContent.querySelector(".modal-add-picture")
 const btnArrowBack = document.querySelector(".arrowBackBtn")
 
-btnAddPicture.addEventListener("click", function() {
-  console.log("go");
-  modalContent2.classList.remove("hidden")
-  modalContent.classList.add("hidden")
+function setModalsListeners(arrayOfCategories) {
+  btnAddPicture.addEventListener("click", function() {
+    console.log("go");
+    modalContent2.classList.remove("hidden")
+    modalContent.classList.add("hidden")
 
-  const categoriesFormSection = document.getElementById("categorie")
-  const categoriesNames = categoriesData.map(category => category.name)
-
-
-  const pleaseSelect = document.createElement("option")
-  pleaseSelect.innerText = "Please select a category"
-  pleaseSelect.disabled = true
-  pleaseSelect.selected = true
-  categoriesFormSection.appendChild(pleaseSelect)
+    const categoriesFormSection = document.getElementById("categorie")
+    const categoriesNames = arrayOfCategories.map(category => category.name)
 
 
-  categoriesNames.forEach(categoryName => {
-    const category = document.createElement("option")
-    category.innerText = categoryName
-    categoriesFormSection.appendChild(category)
-    console.log(category);
+    const pleaseSelect = document.createElement("option")
+    pleaseSelect.innerText = "Please select a category"
+    pleaseSelect.disabled = true
+    pleaseSelect.selected = true
+    categoriesFormSection.appendChild(pleaseSelect)
+
+
+    categoriesNames.forEach(categoryName => {
+      const category = document.createElement("option")
+      category.innerText = categoryName
+      categoriesFormSection.appendChild(category)
+      console.log(category);
+    })
   })
 
-})
+  btnArrowBack.addEventListener("click", function() {
+    console.log("back");
+    modalContent.classList.remove("hidden")
+    modalContent2.classList.add("hidden")
 
-btnArrowBack.addEventListener("click", function() {
-  console.log("back");
-  modalContent.classList.remove("hidden")
-  modalContent2.classList.add("hidden")
+  })
 
-})
+}
+
+setModalsListeners(categoriesData)

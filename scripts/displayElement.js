@@ -54,7 +54,7 @@ export function displayModifyIfConnected () {
       const btnLogout = document.querySelector(".logout")
       btnLogout.classList.remove("hidden")
 
-      const btnModify = document.querySelectorAll(".hidden")
+      const btnModify = document.querySelectorAll(".btn-modify")
 
       for (const btn of btnModify) {
         btn.classList.remove("hidden")

@@ -4,7 +4,7 @@ console.log("Tu es dans index.js");
 import { getWorksData, getCategoriesData } from "./api-fetch.js";
 import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout } from "./displayElement.js";
 import { setFilterListener, setLogoutListnenerfromHomepage,  } from "./listeners.js";
-import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon } from "./modal.js";
+import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners } from "./modal.js";
 
 
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)
@@ -46,41 +46,4 @@ setListenerTrashIcon(modalContent)
 
 // Créer la deuxième modal et gérer l'interaction entre les deux
 const modalContent2 = document.querySelector(".modal-content-2")
-const btnAddPicture = modalContent.querySelector(".modal-add-picture")
-const btnArrowBack = document.querySelector(".arrowBackBtn")
-
-function setModalsListeners(arrayOfCategories) {
-  btnAddPicture.addEventListener("click", function() {
-    console.log("go");
-    modalContent2.classList.remove("hidden")
-    modalContent.classList.add("hidden")
-
-    const categoriesFormSection = document.getElementById("categorie")
-    const categoriesNames = arrayOfCategories.map(category => category.name)
-
-
-    const pleaseSelect = document.createElement("option")
-    pleaseSelect.innerText = "Please select a category"
-    pleaseSelect.disabled = true
-    pleaseSelect.selected = true
-    categoriesFormSection.appendChild(pleaseSelect)
-
-
-    categoriesNames.forEach(categoryName => {
-      const category = document.createElement("option")
-      category.innerText = categoryName
-      categoriesFormSection.appendChild(category)
-      console.log(category);
-    })
-  })
-
-  btnArrowBack.addEventListener("click", function() {
-    console.log("back");
-    modalContent.classList.remove("hidden")
-    modalContent2.classList.add("hidden")
-
-  })
-
-}
-
-setModalsListeners(categoriesData)
+setModalsListeners(categoriesData, modalContent, modalContent2)

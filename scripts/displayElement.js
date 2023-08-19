@@ -91,10 +91,11 @@ export function removeFiltersIfConnected () {
 
 
 export async function removeModify() {
-  const btnModify = document.querySelectorAll(".modify-hidden")
+  const btnModify = document.querySelectorAll(".btn-modify")
+  console.log(btnModify);
 
   for (const btn of btnModify) {
-    btn.classList.add("modify-hidden")
+    btn.classList.add("hidden")
   }
 }
 

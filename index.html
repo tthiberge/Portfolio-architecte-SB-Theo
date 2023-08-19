@@ -33,8 +33,10 @@
       <figure>
         <img src="./assets/images/sophie-bluel.png" alt="">
       </figure>
-      <a href="#" class="introduction-modify btn-modify"><p class="hidden">
-        <i class="fa-solid fa-pen-to-square"></i> modifier </p></a>
+      <a href="#" class="introduction-modify ">
+        <p class="btn-modify hidden">
+        <i class="fa-solid fa-pen-to-square"></i> modifier </p>
+      </a>
     </div>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -72,28 +74,44 @@
 
   <!-- Modal Structure -->
   <aside class="modal" id="simpleModal">
-    <div class="modal-content">
+    <div class="modal-content ">
       <i class="fa-solid fa-xmark closeBtn" id="closeModalBtn"></i>
       <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Galerie Photo</p>
-      <div class="modal-grid"></p>
+      <div class="modal-grid"></div>
     </div>
 
-    <div class="modal-content-2 hidden">
+    <div class="modal-content-2 hidden ">
+      <!-- Remettre class hidden sur modal-content-2 -->
       <i class="fa-solid fa-arrow-left arrowBackBtn" id="returnToModal"></i>
       <i class="fa-solid fa-xmark closeBtn" id="closeModalBtn2"></i>
       <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Ajout Photo</p>
       <section class="form">
         <form action="#" method="post">
+
+          <div class="custom-file-upload">
+            <label for="fileUpload" class="file-upload-label">
+              <i class="fa-regular fa-image file-upload-img"></i>
+              <p class="file-upload-add">+ Ajouter photo</p>
+              <p class="file-upload-authorized">jpg, png : 4mo max</p>
+
+
+            </label>
+            <input type="file" id="fileUpload" class="file-upload" accept="image/png, image/jpeg" >
+          </div>
+
           <label for="titre">Titre</label>
           <input type="text" name="titre" id="titre" required>
           <label for="categorie">Catégorie</label>
           <select name="categorie" id="categorie" required>
-              <!-- <option value="select" disabled selected >Please select a category</option> -->
-        </form>
+          </select>
+          <div class="modal-line"></div>
+          <input type="submit" value="Valider">
+      </form>
       </section>
     </div>
+
   </aside>
 </main>
 

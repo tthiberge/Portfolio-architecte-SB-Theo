@@ -29,10 +29,6 @@
 }
 
 .modal-content-2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -74,6 +70,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-bottom: 50px;
 }
 
 .modal-grid {
@@ -83,7 +80,7 @@
   row-gap: 16px;
   margin: 0 auto;
   width: 70%;
-  margin-block: 50px;
+  /* margin-block: 50px; */
 }
 
 .figure-work {
@@ -133,7 +130,7 @@
   height: 1px;
   background: #B3B3B3;
   margin-bottom: 1em;
-
+  margin-top: 50px;
 }
 
 .modal-add-picture {
@@ -161,10 +158,14 @@
   cursor: pointer;
 }
 
+.form-upload {
+
+  /* flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+}
 
 .custom-file-upload {
-  /* position: relative;
-  display: inline-block; */
   display: flex;
 }
 
@@ -172,25 +173,28 @@
   display: none; /* Hide the default input */
 }
 
+.custom-file-upload {
+  border-radius: 3px;
+  background: #E8F1F6;
+}
+
 .file-upload-label {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   border-radius: 3px;
   background: #E8F1F6;
   color: white;
-  padding: 10px 15px;
   cursor: pointer;
   width: 100%;
-  height: 169px;
+  height: 100%;
 }
 
 .file-upload-img {
   font-size: 58px;
   color: #B9C5CC;
-  margin-top: 22px;
+  /* margin-top: 22px; */
   margin-bottom: 15px;
 }
 
@@ -203,6 +207,13 @@
   width: 173px;
   height: 36px;
 
+  color: #306685;
+  text-align: center;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .file-upload-authorized {
@@ -214,5 +225,34 @@
   font-weight: 400;
   line-height: normal;
   margin-top: 7px;
-  margin-bottom: 19px;
+  margin-bottom: 6px;
+}
+
+.modal-line-upload {
+  width: 420px;
+  height: 1px;
+  background: #B3B3B3;
+  margin-bottom: 2em;
+  margin-top: 50px;
+  margin-inline: auto;
+}
+
+.modal-send-work {
+  font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 139px;
+  padding: 10px 49px;
+	text-align: center;
+	border-radius: 60px ;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-send-work.disabled {
+  background-color: #A7A7A7;
+  color: #FFF;
+  cursor: not-allowed;
 }

@@ -4,7 +4,7 @@ console.log("Tu es dans index.js");
 import { getWorksData, getCategoriesData } from "./api-fetch.js";
 import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout } from "./displayElement.js";
 import { setFilterListener, setLogoutListnenerfromHomepage,  } from "./listeners.js";
-import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners } from "./modal.js";
+import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners, displayBottomOfModal2, setListenerSendWork } from "./modal.js";
 
 
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)
@@ -26,6 +26,7 @@ console.log(categoriesData);
 
 // Afficher les filtres
 displayFilters(categoriesData)
+const categoriesNames = categoriesData.map(category => category.name)
 
 
 // Déployer les eventlisteners sur tous ces boutons
@@ -47,3 +48,11 @@ setListenerTrashIcon(modalContent)
 // Créer la deuxième modal et gérer l'interaction entre les deux
 const modalContent2 = document.querySelector(".modal-content-2")
 setModalsListeners(categoriesData, modalContent, modalContent2)
+displayBottomOfModal2(modalContent2)
+
+const btnSendWork = document.querySelector(".modal-send-work")
+const formUpload = document.querySelector(".form-upload").firstElementChild
+const titreModal2 = document.querySelector("#titre")
+const categorieModal2 = document.querySelector("#categorie")
+setListenerSendWork(btnSendWork, formUpload, titreModal2, categorieModal2, categoriesNames)
+

@@ -154,6 +154,7 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     const categoriesFormSection = document.getElementById("categorie")
     const categoriesNames = arrayOfCategories.map(category => category.name)
 
+    categoriesFormSection.innerHTML = ""
 
     const pleaseSelect = document.createElement("option")
     pleaseSelect.innerText = "Please select a category"
@@ -175,6 +176,34 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     modalContent.classList.remove("hidden")
     modalContent2.classList.add("hidden")
 
-  })
+    const btnSendWork = document.querySelector(".modal-send-work")
+    btnSendWork.classList.add("disabled")
 
+  })
+}
+
+export function displayBottomOfModal2(modalContent2) {
+  const line = document.createElement("div")
+  line.classList.add("modal-line-upload")
+
+
+  const btnSendWork = document.createElement("input")
+  btnSendWork.setAttribute("type", "button")
+  btnSendWork.classList.add("modal-send-work")
+  btnSendWork.classList.add("disabled")
+  btnSendWork.value = "Valider"
+  // btnSendWork.disabled = true
+
+  modalContent2.appendChild(line)
+  modalContent2.appendChild(btnSendWork)
+}
+
+
+export function setListenerSendWork(btnSendWork, formUpload, titreModal2, categorieModal2, categoriesNames) {
+  formUpload.addEventListener("change", function(){
+    if (titreModal2.value !== "" && categoriesNames.includes(categorieModal2.value)) {
+      btnSendWork.classList.remove("disabled")
+      console.log(btnSendWork);
+    };
+  })
 }

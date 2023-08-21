@@ -118,15 +118,15 @@ async function sendWork(formSendWorkData) {
     displayGridWorks(worksData)
     displayGridWorksInModal(worksData)
 
-  const btnSuccessfulWorkSent = document.createElement("p")
-  btnSuccessfulWorkSent.classList.add("modal-successful-sent-work")
-  btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !"
+    const btnSuccessfulWorkSent = document.createElement("p")
+    btnSuccessfulWorkSent.classList.add("modal-successful-sent-work")
+    btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !"
 
-  const modalContent2 = document.querySelector(".modal-content-2")
-  modalContent2.appendChild(btnSuccessfulWorkSent)
+    const modalContent2 = document.querySelector(".modal-content-2")
+    modalContent2.appendChild(btnSuccessfulWorkSent)
 
-  const btnSendWork = document.querySelector(".modal-send-work")
-  btnSendWork.classList.add("disabled")
+    const btnSendWork = document.querySelector(".modal-send-work")
+    btnSendWork.classList.add("disabled")
 
   } catch (error) {
     console.error('Error occurred:', error);

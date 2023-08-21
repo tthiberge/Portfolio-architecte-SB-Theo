@@ -49,6 +49,7 @@ setListenerTrashIcon(modalContent)
 
 // Créer la deuxième modal et gérer l'interaction entre les deux
 const modalContent2 = document.querySelector(".modal-content-2")
+displayBottomOfModal2(modalContent2)
 
 const btnSendWork = document.querySelector(".modal-send-work")
 const formUpload = document.querySelector(".form-upload").firstElementChild
@@ -59,7 +60,6 @@ const fileUploadInput = document.querySelector(".file-upload")
 const fileUploadLabel = document.querySelector(".file-upload-label")
 
 setModalsListeners(categoriesData, modalContent, modalContent2, formUpload)
-displayBottomOfModal2(modalContent2)
 
 imgSelectandPreview(fileUploadInput, fileUploadLabel)
 setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds)

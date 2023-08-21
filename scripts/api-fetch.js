@@ -50,7 +50,7 @@ export async function getCategoriesData() {
   }
 }
 
-function getToken() {
+export function getToken() {
   // Peut-être gérer à terme au cas où le token ait expiré ou soit null
   return JSON.parse(window.localStorage.getItem("token"))
 }
@@ -81,6 +81,52 @@ export async function deleteWork(id) {
     displayGridWorks(worksData)
     displayGridWorksInModal(worksData)
 
+
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
+}
+
+export function setSendWorkListenerAndSend(btnSendWork, formSendWork) {
+  btnSendWork.addEventListener("click", function() {
+    let formSendWorkData = new FormData(formSendWork)
+    sendWork(formSendWorkData)
+  })
+}
+
+async function sendWork(formSendWorkData) {
+  const token = getToken()
+  console.log(token);
+
+  try {
+    const responseSendWork = await fetch(`http://localhost:5678/api/works`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formSendWorkData
+    })
+
+    console.log(responseSendWork.ok);
+
+    const responseSendWorkData = await responseSendWork.json();
+    console.log(responseSendWorkData);
+
+    await getWorksData()
+    console.log(worksData);
+
+    displayGridWorks(worksData)
+    displayGridWorksInModal(worksData)
+
+  const btnSuccessfulWorkSent = document.createElement("p")
+  btnSuccessfulWorkSent.classList.add("modal-successful-sent-work")
+  btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !"
+
+  const modalContent2 = document.querySelector(".modal-content-2")
+  modalContent2.appendChild(btnSuccessfulWorkSent)
+
+  const btnSendWork = document.querySelector(".modal-send-work")
+  btnSendWork.classList.add("disabled")
 
   } catch (error) {
     console.error('Error occurred:', error);

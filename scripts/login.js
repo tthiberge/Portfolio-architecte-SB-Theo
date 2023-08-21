@@ -4,8 +4,8 @@ import  { displayLogoutIfConnected, removeLogout } from "./displayElement.js";
 import { setLogoutListnenerfromLogin, handleFormSubmit, displayErrorMessageLogin } from "./listeners.js";
 
 
-displayLogoutIfConnected()
 setLogoutListnenerfromLogin(removeLogout)
+displayLogoutIfConnected()
 
 
 // Ecouter le submit du formulaire de connexion

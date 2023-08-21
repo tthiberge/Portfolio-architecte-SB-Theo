@@ -9,7 +9,7 @@ let worksData
 export async function getWorksData() {
     const responseWorks = await fetch("http://localhost:5678/api/works")
     worksData = await responseWorks.json()
-    console.log(worksData);
+    // console.log(worksData);
 
     // Une fois mis à jour, j'enregistre quand même dans le localStorage
     // Transformation des travaux en JSON

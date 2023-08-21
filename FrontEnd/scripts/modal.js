@@ -145,13 +145,12 @@ export function setListenerTrashIcon(elementThatIsNotRefreshed) {
     })
 }
 
-export function setModalsListeners(arrayOfCategories, modalContent, modalContent2) {
+export function setModalsListeners(arrayOfCategories, modalContent, modalContent2, formUpload) {
 
   const btnAddPicture = modalContent.querySelector(".modal-add-picture")
   const btnArrowBack = document.querySelector(".arrowBackBtn")
 
-  const categoriesFormSection = document.getElementById("categorie")
-  const categoriesNames = arrayOfCategories.map(category => category.name)
+  const categoriesFormSection = document.getElementById("category")
 
   categoriesFormSection.innerHTML = ""
 
@@ -161,17 +160,30 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
   pleaseSelect.selected = true
   categoriesFormSection.appendChild(pleaseSelect)
 
-  categoriesNames.forEach(categoryName => {
+  arrayOfCategories.forEach(cat => {
     const category = document.createElement("option")
-    category.innerText = categoryName
+    category.innerText = cat.name
+    category.value = cat.id
     categoriesFormSection.appendChild(category)
-    // console.log(category);
+    console.log(category);
   })
 
   btnAddPicture.addEventListener("click", function() {
     console.log("go");
     modalContent2.classList.remove("hidden")
     modalContent.classList.add("hidden")
+
+    // console.log(formUpload.children[1].value)
+    // console.log(formUpload.children[3].value)
+    // console.log(formUpload.children[5].value)
+
+    formUpload.children[1].value = ""
+    formUpload.children[3].value = ""
+    formUpload.children[5].value = ""
+
+    // console.log(formUpload.children[1].value)
+    // console.log(formUpload.children[3].value)
+    // console.log(formUpload.children[5].value)
 
   })
 
@@ -181,7 +193,13 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     modalContent2.classList.add("hidden")
 
     const btnSendWork = document.querySelector(".modal-send-work")
-    btnSendWork.classList.add("disabled")
+
+    // REEEEEEEEEEEEEEEEEEEMEEEEEEEEEETTRE
+    // **********************************
+    // btnSendWork.classList.add("disabled")
+        // **********************************
+    // **********************************
+
 
   })
 }
@@ -194,7 +212,9 @@ export function displayBottomOfModal2(modalContent2) {
   const btnSendWork = document.createElement("input")
   btnSendWork.setAttribute("type", "button")
   btnSendWork.classList.add("modal-send-work")
-  btnSendWork.classList.add("disabled")
+  // btnSendWork.classList.add("disabled")
+      // **********************************
+//  Remettre au dessus aussi
   btnSendWork.value = "Valider"
   // btnSendWork.disabled = true
 
@@ -203,13 +223,61 @@ export function displayBottomOfModal2(modalContent2) {
 }
 
 
-export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesNames) {
+export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds) {
   formUpload.addEventListener("change", function(){
-    if (titreModal2.value !== "" && categoriesNames.includes(categorieModal2.value) && fileUploadLabel.firstElementChild.tagName === "IMG") {
+  if (titreModal2.value !== ""
+    && categoriesIds.includes(parseInt(categorieModal2.value))
+    && fileUploadLabel.firstElementChild.tagName === "IMG") {
       btnSendWork.classList.remove("disabled")
-      // console.log(btnSendWork);
     } else {
       btnSendWork.classList.add("disabled")
     };
+  })
+}
+
+export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
+  fileUploadInput.addEventListener("change", function(event) {
+    fileUploadLabel.innerHTML = ""
+
+    const uploadImgPreview = document.createElement("img")
+    uploadImgPreview.alt = "Photo du projet nouvellement ajouté"
+    uploadImgPreview.classList.add("img-upload-preview")
+    fileUploadLabel.appendChild(uploadImgPreview) // Ne pas oublier, sinon on ne le voit pas!
+
+    // Lecture côté client de l'image
+    const file = event.target.files[0]
+    console.log(file);
+
+    if (file && file.type.startsWith('image/')) {
+      if (file.size <= 4 * 1024 * 1024) {
+        const reader = new FileReader()
+
+        reader.onload = function(e) {
+          uploadImgPreview.src = e.target.result
+        }
+
+        reader.readAsDataURL(file)
+
+        console.log(fileUploadLabel.firstElementChild.tagName);
+
+      } else {
+        fileUploadLabel.innerHTML = `<p> Image trop volumineuse</p>
+        <p> La taille doit être inférieure à 4 Mo </p>
+        <p> Compressez la photo et réessayez </p>`
+        fileUploadLabel.style.color = "red"
+        console.log("L'image est trop volumineuse !");
+        // alert("L'image est trop volumineuse !");
+        // console.log(fileUploadLabel.firstElementChild.tagName);
+
+      }
+
+    } else {
+      fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
+      <p>Merci de choisir une image </p>`
+      fileUploadLabel.style.color = "red"
+      console.log("Je n'ai pas pu affichier le preview");
+      console.log(fileUploadLabel.firstElementChild.tagName);
+
+    }
   })
 }

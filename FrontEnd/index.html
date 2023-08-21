@@ -88,18 +88,19 @@
       <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Ajout Photo</p>
       <section class="form form-upload">
-        <form action="#" method="post">
-            <label for="fileUpload" class="file-upload-label custom-file-upload" id="file-upload-label">
-              <i class="fa-regular fa-image file-upload-img"></i>
-              <p class="file-upload-add">+ Ajouter photo</p>
-              <p class="file-upload-authorized">jpg, png : 4mo max</p>
-            </label>
-            <input type="file" id="fileUpload" class="file-upload" accept="image/png, image/jpeg" >
+        <form action="#" method="post" id="form-send-work">
+          <label for="fileUpload" class="file-upload-label custom-file-upload" id="file-upload-label">
+            <i class="fa-regular fa-image file-upload-img"></i>
+            <p class="file-upload-add">+ Ajouter photo</p>
+            <p class="file-upload-authorized">jpg, png : 4mo max</p>
+          </label>
+          <input type="file" id="fileUpload" name="image" class="file-upload" accept="image/png, image/jpeg" >
 
-          <label for="titre">Titre</label>
-          <input type="text" name="titre" id="titre" required>
-          <label for="categorie">Catégorie</label>
-          <select name="categorie" id="categorie" required>
+          <label for="title">Titre</label>
+          <input type="text" name="title" id="title" required>
+          
+          <label for="category">Catégorie</label>
+          <select name="category" id="category" required>
           </select>
       </form>
       </section>

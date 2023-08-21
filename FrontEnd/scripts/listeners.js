@@ -32,10 +32,12 @@ export async function setFilterListener(displayFunction, arrayOfWorks) {
 }
 
 export async function setLogoutListnenerfromHomepage(removeModify, removeLogout) {
+
   const btnLogout = document.querySelector(".logout")
 
   btnLogout.addEventListener("click", function() {
-    if (window.localStorage.getItem("token")) {
+    if (window.localStorage.getItem("userId") && window.localStorage.getItem("token")) {
+      window.localStorage.removeItem("userId")
       window.localStorage.removeItem("token")
     }
 
@@ -122,6 +124,8 @@ function processLoginResponse(loginResponse) {
    // Stocker ID et token dans localstorage
    const tokenStringified = JSON.stringify(loginResponse.token)
    window.localStorage.setItem("token", tokenStringified)
+   const userIdStringified = JSON.stringify(loginResponse.userId)
+   window.localStorage.setItem("userId", userIdStringified)
    console.log("yeah");
 
    // Pour vérifier que je l'ai bien (même si je peux le voir dans l'inspecteur)

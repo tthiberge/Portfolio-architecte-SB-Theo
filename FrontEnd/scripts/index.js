@@ -1,10 +1,10 @@
 console.log("Tu es dans index.js");
 
 // Importer les fonctions dont j'ai besoin
-import { getWorksData, getCategoriesData } from "./api-fetch.js";
+import { getWorksData, getCategoriesData, getToken, setSendWorkListenerAndSend } from "./api-fetch.js";
 import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout } from "./displayElement.js";
-import { setFilterListener, setLogoutListnenerfromHomepage,  } from "./listeners.js";
-import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners, displayBottomOfModal2, setListenerSendWork } from "./modal.js";
+import { setFilterListener, setLogoutListnenerfromHomepage } from "./listeners.js";
+import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners, displayBottomOfModal2, imgSelectandPreview, setListenerSendWork } from "./modal.js";
 
 
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)
@@ -27,6 +27,8 @@ console.log(categoriesData);
 // Afficher les filtres
 displayFilters(categoriesData)
 const categoriesNames = categoriesData.map(category => category.name)
+const categoriesIds = categoriesData.map(category => category.id)
+console.log(categoriesIds);
 
 
 // Déployer les eventlisteners sur tous ces boutons
@@ -47,63 +49,23 @@ setListenerTrashIcon(modalContent)
 
 // Créer la deuxième modal et gérer l'interaction entre les deux
 const modalContent2 = document.querySelector(".modal-content-2")
-setModalsListeners(categoriesData, modalContent, modalContent2)
-displayBottomOfModal2(modalContent2)
 
 const btnSendWork = document.querySelector(".modal-send-work")
 const formUpload = document.querySelector(".form-upload").firstElementChild
-const titreModal2 = document.querySelector("#titre")
-const categorieModal2 = document.querySelector("#categorie")
+const titreModal2 = document.querySelector("#title")
+const categorieModal2 = document.querySelector("#category")
 
 const fileUploadInput = document.querySelector(".file-upload")
 const fileUploadLabel = document.querySelector(".file-upload-label")
 
-fileUploadInput.addEventListener("change", function(event) {
-  console.log(event.target.files)
+setModalsListeners(categoriesData, modalContent, modalContent2, formUpload)
+displayBottomOfModal2(modalContent2)
 
-  fileUploadLabel.innerHTML = ""
+imgSelectandPreview(fileUploadInput, fileUploadLabel)
+setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds)
 
-  const uploadImgPreview = document.createElement("img")
-  uploadImgPreview.alt = "Photo du projet nouvellement ajouté"
-  uploadImgPreview.classList.add("img-upload-preview")
-  fileUploadLabel.appendChild(uploadImgPreview) // Ne pas oublier, sinon on ne le voit pas!
+// FormData sur le bouton Valider
+// Penser à remettre les deux class .disabled quand ça fonctionne
 
-  // Lecture côté client de l'image
-  const file = event.target.files[0]
-  console.log(file);
-
-  if (file && file.type.startsWith('image/')) {
-    if (file.size <= 4 * 1024 * 1024) {
-      const reader = new FileReader()
-
-      reader.onload = function(e) {
-        uploadImgPreview.src = e.target.result
-      }
-
-      reader.readAsDataURL(file)
-
-      console.log(fileUploadLabel.firstElementChild.tagName);
-
-    } else {
-      fileUploadLabel.innerHTML = `<p> Image trop volumineuse</p>
-      <p> La taille doit être inférieure à 4 Mo </p>
-      <p> Compressez la photo et réessayez </p>`
-      fileUploadLabel.style.color = "red"
-      console.log("L'image est trop volumineuse !");
-      // alert("L'image est trop volumineuse !");
-      console.log(fileUploadLabel.firstElementChild.tagName);
-
-    }
-
-  } else {
-    fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
-    <p>Merci de choisir une image </p>`
-    fileUploadLabel.style.color = "red"
-    // uploadImgPreview.alt = 'Mauvais type de fichier \nMerci de choisir une image'; // clear the preview if it's not an image
-    console.log("Je n'ai pas pu affichier le preview");
-    console.log(fileUploadLabel.firstElementChild.tagName);
-
-  }
-})
-
-setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesNames)
+const formSendWork = document.getElementById("form-send-work")
+setSendWorkListenerAndSend(btnSendWork, formSendWork)

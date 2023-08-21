@@ -16,14 +16,17 @@ export function setModal(modal) {
   // console.log(openModalBtn);
 
   // Get close button
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  // console.log(closeModalBtn);
+  const closeModalBtns = document.querySelectorAll('.closeBtn');
+  // console.log(closeModalBtns);
 
   // Listen for open click
   openModalBtn.addEventListener('click', openModal);
 
   // Listen for close click
-  closeModalBtn.addEventListener('click', closeModal);
+
+  closeModalBtns.forEach((closeModalBtn) => {
+    closeModalBtn.addEventListener('click', closeModal);
+  })
 
   // Listen for outside click
   window.addEventListener('click', outsideClick);
@@ -32,6 +35,7 @@ export function setModal(modal) {
 
 // Function to open modal
 function openModal() {
+  console.log(modalFromIndex);
   modalFromIndex.style.display = 'block';
 }
 
@@ -146,29 +150,29 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
   const btnAddPicture = modalContent.querySelector(".modal-add-picture")
   const btnArrowBack = document.querySelector(".arrowBackBtn")
 
+  const categoriesFormSection = document.getElementById("categorie")
+  const categoriesNames = arrayOfCategories.map(category => category.name)
+
+  categoriesFormSection.innerHTML = ""
+
+  const pleaseSelect = document.createElement("option")
+  pleaseSelect.innerText = "Please select a category"
+  pleaseSelect.disabled = true
+  pleaseSelect.selected = true
+  categoriesFormSection.appendChild(pleaseSelect)
+
+  categoriesNames.forEach(categoryName => {
+    const category = document.createElement("option")
+    category.innerText = categoryName
+    categoriesFormSection.appendChild(category)
+    // console.log(category);
+  })
+
   btnAddPicture.addEventListener("click", function() {
     console.log("go");
     modalContent2.classList.remove("hidden")
     modalContent.classList.add("hidden")
 
-    const categoriesFormSection = document.getElementById("categorie")
-    const categoriesNames = arrayOfCategories.map(category => category.name)
-
-    categoriesFormSection.innerHTML = ""
-
-    const pleaseSelect = document.createElement("option")
-    pleaseSelect.innerText = "Please select a category"
-    pleaseSelect.disabled = true
-    pleaseSelect.selected = true
-    categoriesFormSection.appendChild(pleaseSelect)
-
-
-    categoriesNames.forEach(categoryName => {
-      const category = document.createElement("option")
-      category.innerText = categoryName
-      categoriesFormSection.appendChild(category)
-      console.log(category);
-    })
   })
 
   btnArrowBack.addEventListener("click", function() {
@@ -199,11 +203,13 @@ export function displayBottomOfModal2(modalContent2) {
 }
 
 
-export function setListenerSendWork(btnSendWork, formUpload, titreModal2, categorieModal2, categoriesNames) {
+export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesNames) {
   formUpload.addEventListener("change", function(){
-    if (titreModal2.value !== "" && categoriesNames.includes(categorieModal2.value)) {
+    if (titreModal2.value !== "" && categoriesNames.includes(categorieModal2.value) && fileUploadLabel.firstElementChild.tagName === "IMG") {
       btnSendWork.classList.remove("disabled")
-      console.log(btnSendWork);
+      // console.log(btnSendWork);
+    } else {
+      btnSendWork.classList.add("disabled")
     };
   })
 }

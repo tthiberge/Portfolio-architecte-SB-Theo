@@ -75,31 +75,26 @@
   <!-- Modal Structure -->
   <aside class="modal" id="simpleModal">
     <div class="modal-content ">
-      <i class="fa-solid fa-xmark closeBtn" id="closeModalBtn"></i>
+      <i class="fa-solid fa-xmark closeBtn" ></i>
       <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Galerie Photo</p>
       <div class="modal-grid"></div>
     </div>
 
-    <div class="modal-content-2 hidden ">
+    <div class="modal-content-2 ">
       <!-- Remettre class hidden sur modal-content-2 -->
       <i class="fa-solid fa-arrow-left arrowBackBtn" id="returnToModal"></i>
-      <i class="fa-solid fa-xmark closeBtn" id="closeModalBtn2"></i>
+      <i class="fa-solid fa-xmark closeBtn"></i>
       <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Ajout Photo</p>
       <section class="form form-upload">
         <form action="#" method="post">
-
-          <div class="custom-file-upload">
-            <label for="fileUpload" class="file-upload-label">
+            <label for="fileUpload" class="file-upload-label custom-file-upload" id="file-upload-label">
               <i class="fa-regular fa-image file-upload-img"></i>
               <p class="file-upload-add">+ Ajouter photo</p>
               <p class="file-upload-authorized">jpg, png : 4mo max</p>
-
-
             </label>
             <input type="file" id="fileUpload" class="file-upload" accept="image/png, image/jpeg" >
-          </div>
 
           <label for="titre">Titre</label>
           <input type="text" name="titre" id="titre" required>

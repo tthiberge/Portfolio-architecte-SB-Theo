@@ -54,5 +54,56 @@ const btnSendWork = document.querySelector(".modal-send-work")
 const formUpload = document.querySelector(".form-upload").firstElementChild
 const titreModal2 = document.querySelector("#titre")
 const categorieModal2 = document.querySelector("#categorie")
-setListenerSendWork(btnSendWork, formUpload, titreModal2, categorieModal2, categoriesNames)
 
+const fileUploadInput = document.querySelector(".file-upload")
+const fileUploadLabel = document.querySelector(".file-upload-label")
+
+fileUploadInput.addEventListener("change", function(event) {
+  console.log(event.target.files)
+
+  fileUploadLabel.innerHTML = ""
+
+  const uploadImgPreview = document.createElement("img")
+  uploadImgPreview.alt = "Photo du projet nouvellement ajouté"
+  uploadImgPreview.classList.add("img-upload-preview")
+  fileUploadLabel.appendChild(uploadImgPreview) // Ne pas oublier, sinon on ne le voit pas!
+
+  // Lecture côté client de l'image
+  const file = event.target.files[0]
+  console.log(file);
+
+  if (file && file.type.startsWith('image/')) {
+    if (file.size <= 4 * 1024 * 1024) {
+      const reader = new FileReader()
+
+      reader.onload = function(e) {
+        uploadImgPreview.src = e.target.result
+      }
+
+      reader.readAsDataURL(file)
+
+      console.log(fileUploadLabel.firstElementChild.tagName);
+
+    } else {
+      fileUploadLabel.innerHTML = `<p> Image trop volumineuse</p>
+      <p> La taille doit être inférieure à 4 Mo </p>
+      <p> Compressez la photo et réessayez </p>`
+      fileUploadLabel.style.color = "red"
+      console.log("L'image est trop volumineuse !");
+      // alert("L'image est trop volumineuse !");
+      console.log(fileUploadLabel.firstElementChild.tagName);
+
+    }
+
+  } else {
+    fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
+    <p>Merci de choisir une image </p>`
+    fileUploadLabel.style.color = "red"
+    // uploadImgPreview.alt = 'Mauvais type de fichier \nMerci de choisir une image'; // clear the preview if it's not an image
+    console.log("Je n'ai pas pu affichier le preview");
+    console.log(fileUploadLabel.firstElementChild.tagName);
+
+  }
+})
+
+setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesNames)

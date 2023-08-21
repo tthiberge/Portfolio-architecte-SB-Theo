@@ -173,18 +173,18 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     modalContent2.classList.remove("hidden")
     modalContent.classList.add("hidden")
 
-    // console.log(formUpload.children[1].value)
-    // console.log(formUpload.children[3].value)
-    // console.log(formUpload.children[5].value)
-
-    formUpload.children[1].value = ""
+    const fileUploadLabel = document.querySelector(".file-upload-label")
+    fileUploadLabel.innerHTML = `
+    <i class="fa-regular fa-image file-upload-img"></i>
+    <p class="file-upload-add">+ Ajouter photo</p>
+    <p class="file-upload-authorized">jpg, png : 4mo max</p>
+    `
     formUpload.children[3].value = ""
     formUpload.children[5].value = ""
 
-    // console.log(formUpload.children[1].value)
-    // console.log(formUpload.children[3].value)
-    // console.log(formUpload.children[5].value)
-
+    const btnSuccessfulWorkSent =  document.querySelector(".modal-successful-sent-work")
+    console.log(btnSuccessfulWorkSent);
+    btnSuccessfulWorkSent.innerHTML = ""
   })
 
   btnArrowBack.addEventListener("click", function() {

@@ -175,10 +175,6 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     <p class="file-upload-add">+ Ajouter photo</p>
     <p class="file-upload-authorized">jpg, png : 4mo max</p>
     `
-    console.log(fileUploadLabel);
-    // Je remets le listener pour la preview sur ce nouveau HTML
-    // Autrement, la preview ne fonctionnait pas sur un 2ème upload
-    // imgSelectandPreview(fileUploadInput, fileUploadLabel)
 
     formUpload.children[3].value = ""
     formUpload.children[5].value = ""
@@ -217,8 +213,7 @@ export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, ti
     && categoriesIds.includes(parseInt(categorieModal2.value))
     && fileUploadLabel.firstElementChild.tagName === "IMG") {
       btnSendWork.classList.remove("disabled")
-      console.log("yo");
-      // setSendWorkListenerAndSend(btnSendWork, formUpload)
+      setSendWorkListenerAndSend(btnSendWork, formUpload)
     } else {
       btnSendWork.classList.add("disabled")
     };

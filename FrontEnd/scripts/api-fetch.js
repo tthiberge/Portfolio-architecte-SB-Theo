@@ -2,6 +2,7 @@ import { displayGridWorks} from "./displayElement.js";
 import { displayGridWorksInModal } from "./modal.js";
 
 let worksData
+let sendWorkHandler = () => {};
 
 
 export async function getWorksData() {
@@ -84,17 +85,21 @@ export async function deleteWork(id) {
 }
 
 export function setSendWorkListenerAndSend(btnSendWork, formUpload) {
-  btnSendWork.addEventListener("click", function() {
-    let formSendWorkData = new FormData(formUpload)
-    sendWork(formSendWorkData)
-  })
+  sendWorkHandler = () => sendWork(btnSendWork, formUpload)
+  btnSendWork.addEventListener("click", sendWorkHandler)
 }
 
-async function sendWork(formSendWorkData,) {
+async function sendWork(btnSendWork, formUpload) {
+  // J'enlève le listener précédent pour éviter les cumuls
+  btnSendWork.removeEventListener("click", sendWorkHandler)
+
+  // Je crée le FormData
+  let formSendWorkData = new FormData(formUpload)
+
   const token = getToken()
   console.log(token);
 
-  console.log(formSendWorkData.get("image"));
+  console.log(formSendWorkData.getAll("image"));
   const file = formSendWorkData.get("image")
 
   try {

@@ -1,5 +1,3 @@
-console.log("Tu es dans displayElement.js");
-
 export function displayGridWorks(arrayOfWorks) {
   // Selecting my gallery of works
   const galleryWorks = document.querySelector(".gallery")
@@ -49,7 +47,7 @@ export async function displayFilters(arrayOfCategories) {
 export function displayModifyIfConnected () {
   if (window.localStorage.getItem("token")) {
     const token = JSON.parse(window.localStorage.getItem("token"))
-    console.log(token)
+    // console.log(token)
     if (token  !== null) {
       const btnLogout = document.querySelector(".logout")
       btnLogout.classList.remove("hidden")

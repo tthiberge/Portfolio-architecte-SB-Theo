@@ -1,5 +1,3 @@
-console.log("Je suis dans listeners.js");
-
 export async function setFilterListener(displayFunction, arrayOfWorks) {
 
   const filterItems = document.querySelectorAll(".filters button")
@@ -49,7 +47,6 @@ export async function setLogoutListnenerfromHomepage(removeModify, removeLogout)
 
 export async function setLogoutListnenerfromLogin(removeLogout) {
   const btnLogout = document.querySelector(".logout")
-  console.log(btnLogout);
 
   btnLogout.addEventListener("click", function() {
     if (window.localStorage.getItem("token")) {
@@ -133,7 +130,7 @@ function processLoginResponse(loginResponse) {
    console.log(`There is a saved token whose value is ${tokenSaved}`);
 }
 
-export function displayErrorMessageLogin(error) {
+function displayErrorMessageLogin(error) {
   const warningMessage = document.querySelector(".warning")
   warningMessage.innerText = error.message
 }

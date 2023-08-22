@@ -1,5 +1,3 @@
-console.log("Tu es dans api-fetch.js");
-
 import { displayGridWorks} from "./displayElement.js";
 import { displayGridWorksInModal } from "./modal.js";
 
@@ -58,7 +56,6 @@ export function getToken() {
 export async function deleteWork(id) {
   const token = getToken()
 
-
   try {
     const responseDelete = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: 'DELETE',
@@ -81,54 +78,68 @@ export async function deleteWork(id) {
     displayGridWorks(worksData)
     displayGridWorksInModal(worksData)
 
-
   } catch (error) {
     console.error('Error occurred:', error);
   }
 }
 
-export function setSendWorkListenerAndSend(btnSendWork, formSendWork) {
+export function setSendWorkListenerAndSend(btnSendWork, formUpload) {
   btnSendWork.addEventListener("click", function() {
-    let formSendWorkData = new FormData(formSendWork)
+    let formSendWorkData = new FormData(formUpload)
     sendWork(formSendWorkData)
   })
 }
 
-async function sendWork(formSendWorkData) {
+async function sendWork(formSendWorkData,) {
   const token = getToken()
   console.log(token);
 
+  console.log(formSendWorkData.get("image"));
+  const file = formSendWorkData.get("image")
+
   try {
-    const responseSendWork = await fetch(`http://localhost:5678/api/works`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      body: formSendWorkData
-    })
+   if (file && file.type.startsWith('image/')) {
+    console.log("C'est une image!");
+      if (file.size <= 4 * 1024 * 1024) {
+        console.log("Mon fichier fait moins de 4Mo nananère");
 
-    console.log(responseSendWork.ok);
+      const responseSendWork = await fetch(`http://localhost:5678/api/works`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formSendWorkData
+      })
 
-    const responseSendWorkData = await responseSendWork.json();
-    console.log(responseSendWorkData);
+      console.log(responseSendWork.ok);
 
-    await getWorksData()
-    console.log(worksData);
+      const responseSendWorkData = await responseSendWork.json();
+      console.log(responseSendWorkData);
 
-    displayGridWorks(worksData)
-    displayGridWorksInModal(worksData)
+      await getWorksData()
+      console.log(worksData);
 
-    const btnSuccessfulWorkSent = document.createElement("p")
-    btnSuccessfulWorkSent.classList.add("modal-successful-sent-work")
-    btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !"
+      displayGridWorks(worksData)
+      displayGridWorksInModal(worksData)
 
-    const modalContent2 = document.querySelector(".modal-content-2")
-    modalContent2.appendChild(btnSuccessfulWorkSent)
+      const btnSuccessfulWorkSent = document.createElement("p")
+      btnSuccessfulWorkSent.classList.add("modal-successful-sent-work")
+      btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !"
 
-    const btnSendWork = document.querySelector(".modal-send-work")
-    btnSendWork.classList.add("disabled")
+      const modalContent2 = document.querySelector(".modal-content-2")
+      modalContent2.appendChild(btnSuccessfulWorkSent)
+
+      const btnSendWork = document.querySelector(".modal-send-work")
+      btnSendWork.classList.add("disabled")
+
+      } else {
+        throw new Error ("L'image est trop volumineuse")
+      }
+    } else {
+      throw new Error ("Le document chargé n'est pas une image. Réessayez avec le bon format de fichier")
+    }
 
   } catch (error) {
-    console.error('Error occurred:', error);
+    console.error('Erreur détectée:', error);
   }
 }

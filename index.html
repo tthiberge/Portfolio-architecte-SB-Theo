@@ -48,9 +48,6 @@
 	<section id="portfolio">
     <div class="portfolio-subsection">
       <h2>Mes Projets <span class="hidden works-modify btn-modify openModal"><i class="fa-solid fa-pen-to-square"></i> modifier</span></h2>
-      <!-- <p class="invisible works-modify openModal">
-        <i class="fa-solid fa-pen-to-square"></i> modifier
-      </p> -->
     </div>
     <div class="filters">
       <button class="filters-unclicked">Tous</button>
@@ -72,20 +69,20 @@
 		</form>
 	</section>
 
-  <!-- Modal Structure -->
+  <!-- Structure des modales-->
   <aside class="modal" id="simpleModal">
+    <!-- Modale 1 -->
     <div class="modal-content ">
       <i class="fa-solid fa-xmark closeBtn" ></i>
-      <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Galerie Photo</p>
       <div class="modal-grid"></div>
     </div>
 
-    <div class="modal-content-2 ">
+    <!-- Modale 2 -->
+    <div class="modal-content-2 hidden">
       <!-- Remettre class hidden sur modal-content-2 -->
       <i class="fa-solid fa-arrow-left arrowBackBtn" id="returnToModal"></i>
       <i class="fa-solid fa-xmark closeBtn"></i>
-      <!-- <span class="" ">&times;</span> -->
       <p class="modal-title">Ajout Photo</p>
       <section class="form form-upload">
         <form action="#" method="post" id="form-send-work">
@@ -98,7 +95,7 @@
 
           <label for="title">Titre</label>
           <input type="text" name="title" id="title" required>
-          
+
           <label for="category">Catégorie</label>
           <select name="category" id="category" required>
           </select>

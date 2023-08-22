@@ -1,11 +1,7 @@
-console.log("Je suis dans modal.js");
-
-import { deleteWork } from "./api-fetch.js";
+import { deleteWork, setSendWorkListenerAndSend } from "./api-fetch.js";
 
 // Bien définir une variable à un higher scope pour qu'elle soit accessible à toutes les fonctions de la page
-// Get modal element
 let modalFromIndex
-
 
 export function setModal(modal) {
   // Assigner à notre variable anonyme la valeur issue réelle issue de index.js
@@ -13,17 +9,14 @@ export function setModal(modal) {
 
   // Get open modal button
   const openModalBtn = document.querySelector('.openModal');
-  // console.log(openModalBtn);
 
   // Get close button
   const closeModalBtns = document.querySelectorAll('.closeBtn');
-  // console.log(closeModalBtns);
 
   // Listen for open click
   openModalBtn.addEventListener('click', openModal);
 
   // Listen for close click
-
   closeModalBtns.forEach((closeModalBtn) => {
     closeModalBtn.addEventListener('click', closeModal);
   })
@@ -33,13 +26,12 @@ export function setModal(modal) {
 }
 
 
-// Function to open modal
+// Function to open/reveal modal
 function openModal() {
-  console.log(modalFromIndex);
   modalFromIndex.style.display = 'block';
 }
 
-// Function to close modal
+// Function to close/hide modal
 function closeModal() {
   modalFromIndex.style.display = 'none';
 }
@@ -52,7 +44,7 @@ function outsideClick(event) {
 }
 
 export function displayGridWorksInModal(arrayOfWorks) {
-  // Selecting my gallery of works
+  // Sélectionner et ré-initialiser ma gallery de travaux
   const modalGrid = document.querySelector(".modal-grid")
   modalGrid.innerHTML = ""
 
@@ -65,13 +57,11 @@ export function displayGridWorksInModal(arrayOfWorks) {
     figureWork.classList.add("figure-work")
     figureWork.dataset.setId = work.id
 
-
     const imgWork = document.createElement("img")
-    // console.log(work.imageUrl);
     imgWork.src = work.imageUrl
-    // console.log(imgWork);
     imgWork.alt = work.title
     imgWork.classList.add("img-work")
+
     const figCaptionWork = document.createElement("figcaption")
     figCaptionWork.innerText = "éditer"
     figCaptionWork.classList.add("figcaption-work")
@@ -88,7 +78,7 @@ export function displayGridWorksInModal(arrayOfWorks) {
     zoomIcon.classList.add("zoom-icon")
     zoomIcon.style.display = "none"
 
-    // Appending the elemnts of my card
+    // Appending the elements of my card
     modalGrid.appendChild(figureWork)
     figureWork.appendChild(imgWork)
     figureWork.appendChild(figCaptionWork)
@@ -99,9 +89,7 @@ export function displayGridWorksInModal(arrayOfWorks) {
 
 export function setListenerZoomIcon(modalFigures) {
   modalFigures.forEach((modalFigure) => {
-    // console.log(modalFigure);
     const zoomIcon = modalFigure.querySelector(".zoom-icon")
-    // console.log(zoomIcon);
 
     modalFigure.addEventListener("mouseover", function() {
       zoomIcon.style.display = "block"
@@ -116,14 +104,10 @@ export function displayBottomOfModal(modalContent) {
   const line = document.createElement("div")
   line.classList.add("modal-line")
 
-
   const btnAddPicture = document.createElement("input")
   btnAddPicture.setAttribute("type", "button")
   btnAddPicture.classList.add("modal-add-picture")
   btnAddPicture.value = "Ajouter une photo"
-  // btnAddPicture.disabled = true
-  // Abled sinon je peux pas faire mon listener dessus
-
 
   const btnDeleteGallery = document.createElement("p")
   btnDeleteGallery.classList.add("modal-delete-gallery")
@@ -138,90 +122,94 @@ export function setListenerTrashIcon(elementThatIsNotRefreshed) {
   elementThatIsNotRefreshed.addEventListener("click", function(event) {
     if (event.target.matches(".trash-icon")) {
       const id = event.target.dataset.setId
-      console.log(id);
-
       deleteWork(id)
     }
-    })
+  })
 }
 
-export function setModalsListeners(arrayOfCategories, modalContent, modalContent2, formUpload) {
-
+export function setModalsListeners(arrayOfCategories, modalContent, modalContent2, formUpload, categorieModal2) {
+  // Ciblage des boutons significatifs sur les modales
   const btnAddPicture = modalContent.querySelector(".modal-add-picture")
   const btnArrowBack = document.querySelector(".arrowBackBtn")
 
-  const categoriesFormSection = document.getElementById("category")
+  //Réinitialisation du menu déroulant de la modale 2
+  categorieModal2.innerHTML = ""
 
-  categoriesFormSection.innerHTML = ""
-
+  // Création du menu déroulant de la modale 2
   const pleaseSelect = document.createElement("option")
   pleaseSelect.innerText = "Please select a category"
   pleaseSelect.disabled = true
   pleaseSelect.selected = true
-  categoriesFormSection.appendChild(pleaseSelect)
+  categorieModal2.appendChild(pleaseSelect)
 
   arrayOfCategories.forEach(cat => {
     const category = document.createElement("option")
     category.innerText = cat.name
-    category.value = cat.id
-    categoriesFormSection.appendChild(category)
-    console.log(category);
+    category.value = cat.id // Ce qui sera envoyé dans le FormData
+    categorieModal2.appendChild(category)
   })
 
+  // Passage de la modale 1 à la modale 2
   btnAddPicture.addEventListener("click", function() {
-    console.log("go");
     modalContent2.classList.remove("hidden")
     modalContent.classList.add("hidden")
+  })
 
+  // Passage de la modale 2 à la modale 1
+  btnArrowBack.addEventListener("click", function() {
+    modalContent.classList.remove("hidden")
+    modalContent2.classList.add("hidden")
+
+    // Le retour à la modale 1 désactive le bouton permettant de poster un nouveau projet
+    // et réinitialise les inputs du formulaire
+    const btnSendWork = document.querySelector(".modal-send-work")
+    console.log(btnSendWork);
+    btnSendWork.classList.add("disabled")
+
+    const fileUploadInputs = document.querySelectorAll(".file-upload")
+    console.log(fileUploadInputs);
     const fileUploadLabel = document.querySelector(".file-upload-label")
+    console.log(fileUploadLabel);
     fileUploadLabel.innerHTML = `
     <i class="fa-regular fa-image file-upload-img"></i>
     <p class="file-upload-add">+ Ajouter photo</p>
     <p class="file-upload-authorized">jpg, png : 4mo max</p>
     `
+    console.log(fileUploadLabel);
+    // Je remets le listener pour la preview sur ce nouveau HTML
+    // Autrement, la preview ne fonctionnait pas sur un 2ème upload
+    // imgSelectandPreview(fileUploadInput, fileUploadLabel)
+
     formUpload.children[3].value = ""
     formUpload.children[5].value = ""
 
-    const btnSuccessfulWorkSent =  document.querySelector(".modal-successful-sent-work")
-    console.log(btnSuccessfulWorkSent);
-    btnSuccessfulWorkSent.innerHTML = ""
-  })
-
-  btnArrowBack.addEventListener("click", function() {
-    console.log("back");
-    modalContent.classList.remove("hidden")
-    modalContent2.classList.add("hidden")
-
-    const btnSendWork = document.querySelector(".modal-send-work")
-
-    // REEEEEEEEEEEEEEEEEEEMEEEEEEEEEETTRE
-    // **********************************
-    // btnSendWork.classList.add("disabled")
-        // **********************************
-    // **********************************
-
-
+    // Réinitialisation du message "Projet ajouté avec succès" pour que les messages
+    // ne s'accumulent pas - Prise en compte du cas où aucun projet n'a été chargé
+    const btnsSuccessfulWorkSent =  document.querySelectorAll(".modal-successful-sent-work")
+    console.log(btnsSuccessfulWorkSent);
+    if (btnsSuccessfulWorkSent) {
+      btnsSuccessfulWorkSent.forEach((btn) => {
+        btn.remove()
+        console.log("removed")
+      })
+    }
   })
 }
+
 
 export function displayBottomOfModal2(modalContent2) {
   const line = document.createElement("div")
   line.classList.add("modal-line-upload")
 
-
   const btnSendWork = document.createElement("input")
   btnSendWork.setAttribute("type", "button")
   btnSendWork.classList.add("modal-send-work")
-  // btnSendWork.classList.add("disabled")
-      // **********************************
-//  Remettre au dessus aussi
+  btnSendWork.classList.add("disabled")
   btnSendWork.value = "Valider"
-  // btnSendWork.disabled = true
 
   modalContent2.appendChild(line)
   modalContent2.appendChild(btnSendWork)
 }
-
 
 export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds) {
   formUpload.addEventListener("change", function(){
@@ -229,6 +217,8 @@ export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, ti
     && categoriesIds.includes(parseInt(categorieModal2.value))
     && fileUploadLabel.firstElementChild.tagName === "IMG") {
       btnSendWork.classList.remove("disabled")
+      console.log("yo");
+      // setSendWorkListenerAndSend(btnSendWork, formUpload)
     } else {
       btnSendWork.classList.add("disabled")
     };
@@ -242,11 +232,12 @@ export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
     const uploadImgPreview = document.createElement("img")
     uploadImgPreview.alt = "Photo du projet nouvellement ajouté"
     uploadImgPreview.classList.add("img-upload-preview")
-    fileUploadLabel.appendChild(uploadImgPreview) // Ne pas oublier, sinon on ne le voit pas!
+    fileUploadLabel.appendChild(uploadImgPreview)
+    // Ne pas oublier, sinon on ne le voit pas!
 
     // Lecture côté client de l'image
     const file = event.target.files[0]
-    console.log(file);
+    // console.log(file);
 
     if (file && file.type.startsWith('image/')) {
       if (file.size <= 4 * 1024 * 1024) {
@@ -257,27 +248,21 @@ export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
         }
 
         reader.readAsDataURL(file)
-
         console.log(fileUploadLabel.firstElementChild.tagName);
 
       } else {
-        fileUploadLabel.innerHTML = `<p> Image trop volumineuse</p>
-        <p> La taille doit être inférieure à 4 Mo </p>
+        fileUploadLabel.innerHTML = `<p> Image trop volumineuse: ${Math.round(file.size / (1024 * 1024))} Mo</p>
+        <p> Taille maximale de 4 Mo </p>
         <p> Compressez la photo et réessayez </p>`
         fileUploadLabel.style.color = "red"
         console.log("L'image est trop volumineuse !");
         // alert("L'image est trop volumineuse !");
-        // console.log(fileUploadLabel.firstElementChild.tagName);
-
       }
-
     } else {
       fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
       <p>Merci de choisir une image </p>`
       fileUploadLabel.style.color = "red"
       console.log("Je n'ai pas pu affichier le preview");
-      console.log(fileUploadLabel.firstElementChild.tagName);
-
     }
   })
 }

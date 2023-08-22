@@ -1,7 +1,5 @@
-console.log("Je suis dans login.js")
-
 import  { displayLogoutIfConnected, removeLogout } from "./displayElement.js";
-import { setLogoutListnenerfromLogin, handleFormSubmit, displayErrorMessageLogin } from "./listeners.js";
+import { setLogoutListnenerfromLogin, handleFormSubmit } from "./listeners.js";
 
 
 setLogoutListnenerfromLogin(removeLogout)

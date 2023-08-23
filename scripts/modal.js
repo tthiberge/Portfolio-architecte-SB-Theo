@@ -3,7 +3,7 @@ import { deleteWork, sendWork } from "./api-fetch.js";
 // Bien définir une variable à un higher scope pour qu'elle soit accessible à toutes les fonctions de la page
 let modalFromIndex
 const formUpload = document.getElementById("form-send-work")
-let sendWorkHandler = () => sendWork(formUpload);
+let sendWorkHandler = () => sendWork(formUpload, sendWorkHandler);
 
 export function setModal(modal) {
   // Assigner à notre variable anonyme la valeur issue réelle issue de index.js
@@ -29,7 +29,21 @@ export function setModal(modal) {
 
 // Function to open/reveal modal
 function openModal() {
-  modalFromIndex.style.display = 'block';
+  // Protection depuis le serveur, et pas seulement de l'affichage côté serveur (listeners.js)
+  if (window.localStorage.getItem("token")) {
+    const token = JSON.parse(window.localStorage.getItem("token"))
+    // console.log(token)
+    if (token  !== null) {
+      modalFromIndex.style.display = 'block';
+
+    } else {
+      console.log("Token invalide, sorry!");
+      alert("Token invalide, sorry!");
+    }
+  } else {
+    console.log("Sans token, vous ne pouvez apporter des modifications aux projets. \nConnectez-vous et réessayez!");
+    alert("Sans token, vous ne pouvez apporter des modifications aux projets. \nConnectez-vous et réessayez!");
+  }
 }
 
 // Function to close/hide modal
@@ -161,10 +175,12 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     modalContent.classList.remove("hidden")
     modalContent2.classList.add("hidden")
 
+    const btnSendWork = document.querySelector(".modal-send-work")
+    // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en passant d'une modale à l'autre
+    btnSendWork.removeEventListener("click", sendWorkHandler)
+
     // Le retour à la modale 1 désactive le bouton permettant de poster un nouveau projet
     // et réinitialise les inputs du formulaire
-    const btnSendWork = document.querySelector(".modal-send-work")
-    console.log(btnSendWork);
     btnSendWork.classList.add("disabled")
 
     const fileUploadInputs = document.querySelectorAll(".file-upload")
@@ -179,9 +195,6 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
 
     formUpload.children[3].value = ""
     formUpload.children[5].value = ""
-
-    // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en passant d'une modale à l'autre
-    btnSendWork.removeEventListener("click", sendWorkHandler)
 
     // Réinitialisation du message "Projet ajouté avec succès" pour que les messages
     // ne s'accumulent pas - Prise en compte du cas où aucun projet n'a été chargé
@@ -232,7 +245,12 @@ export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, ti
 }
 
 export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
-  fileUploadInput.addEventListener("change", function(event) {
+  fileUploadInput.addEventListener("change", handleFileChange(fileUploadLabel))
+  // fileUploadInput.removeEventListener("change", handleFileChange);
+}
+
+function handleFileChange(fileUploadLabel) {
+  return function(event) {
     fileUploadLabel.innerHTML = ""
 
     const uploadImgPreview = document.createElement("img")
@@ -269,5 +287,5 @@ export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
       fileUploadLabel.style.color = "red"
       console.log("Je n'ai pas pu afficher le preview, ce n'est pas une image");
     }
-  })
+  }
 }

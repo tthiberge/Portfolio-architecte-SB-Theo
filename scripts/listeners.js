@@ -1,5 +1,4 @@
 export async function setFilterListener(displayFunction, arrayOfWorks) {
-
   const filterItems = document.querySelectorAll(".filters button")
 
   for (let i = 0; i < filterItems.length; i++) {
@@ -30,7 +29,6 @@ export async function setFilterListener(displayFunction, arrayOfWorks) {
 }
 
 export async function setLogoutListnenerfromHomepage(removeModify, removeLogout) {
-
   const btnLogout = document.querySelector(".logout")
 
   btnLogout.addEventListener("click", function() {
@@ -49,7 +47,8 @@ export async function setLogoutListnenerfromLogin(removeLogout) {
   const btnLogout = document.querySelector(".logout")
 
   btnLogout.addEventListener("click", function() {
-    if (window.localStorage.getItem("token")) {
+    if (window.localStorage.getItem("token") && window.localStorage.getItem("token")) {
+      window.localStorage.removeItem("userId")
       window.localStorage.removeItem("token")
     }
 
@@ -77,7 +76,7 @@ export async function handleFormSubmit(event) {
 
 
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     displayErrorMessageLogin(error)
   }
 }
@@ -123,7 +122,6 @@ function processLoginResponse(loginResponse) {
    window.localStorage.setItem("token", tokenStringified)
    const userIdStringified = JSON.stringify(loginResponse.userId)
    window.localStorage.setItem("userId", userIdStringified)
-   console.log("yeah");
 
    // Pour vérifier que je l'ai bien (même si je peux le voir dans l'inspecteur)
    const tokenSaved = window.localStorage.getItem("token")

@@ -8,7 +8,6 @@ let sendWorkHandler = () => {};
 export async function getWorksData() {
     const responseWorks = await fetch("http://localhost:5678/api/works")
     worksData = await responseWorks.json()
-    // console.log(worksData);
 
     // Une fois mis à jour, j'enregistre quand même dans le localStorage
     // Transformation des travaux en JSON
@@ -18,8 +17,6 @@ export async function getWorksData() {
 
     return worksData
 }
-
-
 
 export async function getCategoriesData() {
   let categoriesData = window.localStorage.getItem("categories")
@@ -72,6 +69,9 @@ export async function deleteWork(id) {
       if (responseDelete.status === 204){
         console.log('Resource deleted successfully, no content returned.');
       }
+    } else {
+      const errorData = await responseDelete.json()
+      throw new Error(`La requête n'a pu aboutir. \nLe serveur indique '${errorData.message}'.`)
     }
 
     await getWorksData()
@@ -80,14 +80,8 @@ export async function deleteWork(id) {
     displayGridWorksInModal(worksData)
 
   } catch (error) {
-    console.error('Error occurred:', error);
+    console.error('Error occurred:', error.message);
   }
-}
-
-export function setSendWorkListenerAndSend(btnSendWork, formUpload) {
-  sendWorkHandler = () => sendWork(btnSendWork, formUpload)
-  btnSendWork.addEventListener("click", sendWorkHandler)
-  console.log("Listener ajouté sur btnSendWork");
 }
 
 export async function sendWork(formUpload) {
@@ -107,6 +101,11 @@ export async function sendWork(formUpload) {
         },
         body: formSendWorkData
       })
+
+      if (!responseSendWork.ok) {
+        const errorData = await responseSendWork.json()
+        throw new Error(`La requête n'a pu aboutir. \nLe serveur indique '${errorData.message}'`)
+      }
 
       const responseSendWorkData = await responseSendWork.json();
       console.log(responseSendWorkData);
@@ -134,7 +133,7 @@ export async function sendWork(formUpload) {
     }
 
   } catch (error) {
-    console.error('Erreur détectée:', error);
+    console.error('Erreur détectée:', error.message);
   }
 }
 

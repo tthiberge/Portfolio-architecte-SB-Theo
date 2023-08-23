@@ -16,7 +16,6 @@ export function displayGridWorks(arrayOfWorks) {
     figCaptionWork.innerText = work.title
 
     // Appending the elemnts of my card
-
     galleryWorks.appendChild(figureWork)
     figureWork.appendChild(imgWork)
     figureWork.appendChild(figCaptionWork)
@@ -26,7 +25,6 @@ export function displayGridWorks(arrayOfWorks) {
 
 export async function displayFilters(arrayOfCategories) {
   const filters = document.querySelector(".filters")
-
   const categoriesNames = arrayOfCategories.map(category => category.name)
 
   for (let i = 0; i < categoriesNames.length; i++) {
@@ -87,10 +85,8 @@ export function removeFiltersIfConnected () {
   }
 }
 
-
 export async function removeModify() {
   const btnModify = document.querySelectorAll(".btn-modify")
-  console.log(btnModify);
 
   for (const btn of btnModify) {
     btn.classList.add("hidden")

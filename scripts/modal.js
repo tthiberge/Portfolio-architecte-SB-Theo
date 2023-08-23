@@ -1,7 +1,10 @@
-import { deleteWork, setSendWorkListenerAndSend } from "./api-fetch.js";
+import { deleteWork, setSendWorkListenerAndSend, sendWork } from "./api-fetch.js";
 
 // Bien définir une variable à un higher scope pour qu'elle soit accessible à toutes les fonctions de la page
 let modalFromIndex
+const formUpload = document.getElementById("form-send-work")
+let sendWorkHandler = () => sendWork(formUpload);
+
 
 export function setModal(modal) {
   // Assigner à notre variable anonyme la valeur issue réelle issue de index.js
@@ -175,6 +178,10 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     <p class="file-upload-add">+ Ajouter photo</p>
     <p class="file-upload-authorized">jpg, png : 4mo max</p>
     `
+    // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en passant d'une modale à l'autre
+    btnSendWork.removeEventListener("click", sendWorkHandler)
+    console.log("Listener enlevé sur btnSendWork");
+
 
     formUpload.children[3].value = ""
     formUpload.children[5].value = ""
@@ -209,12 +216,23 @@ export function displayBottomOfModal2(modalContent2) {
 
 export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds) {
   formUpload.addEventListener("change", function(){
+
+  // Dès qu'il y a un change sur le formulaire:
+  // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en restant sur la même modale
+  btnSendWork.removeEventListener("click", sendWorkHandler)
+  console.log("Listener enlevé sur btnSendWork");
+
   if (titreModal2.value !== ""
-    && categoriesIds.includes(parseInt(categorieModal2.value))
-    && fileUploadLabel.firstElementChild.tagName === "IMG") {
-      btnSendWork.classList.remove("disabled")
-      setSendWorkListenerAndSend(btnSendWork, formUpload)
+  && categoriesIds.includes(parseInt(categorieModal2.value))
+  && fileUploadLabel.firstElementChild.tagName === "IMG") {
+    // Bouton pour envoyer le projet passe de gris à vert
+    btnSendWork.classList.remove("disabled")
+
+    // Remettre le listener quand c'est bien rempli.
+    btnSendWork.addEventListener("click", sendWorkHandler)
+    console.log("Listener ajouté sur btnSendWork");
     } else {
+      // Bouton pour envoyer le projet passe de vert à gris
       btnSendWork.classList.add("disabled")
     };
   })

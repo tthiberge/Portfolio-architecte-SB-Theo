@@ -1,6 +1,6 @@
 // Importer les fonctions dont j'ai besoin
-import { getWorksData, getCategoriesData, getToken, setSendWorkListenerAndSend } from "./api-fetch.js";
-import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeFiltersIfConnected, removeModify, removeLogout } from "./displayElement.js";
+import { getWorksData, getCategoriesData } from "./api-fetch.js";
+import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeModify, removeLogout } from "./displayElement.js";
 import { setFilterListener, setLogoutListnenerfromHomepage } from "./listeners.js";
 import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners, displayBottomOfModal2, imgSelectandPreview, setListenerSendWork } from "./modal.js";
 
@@ -55,11 +55,5 @@ const fileUploadLabel = document.querySelector(".file-upload-label")
 
 setModalsListeners(categoriesData, modalContent, modalContent2, formUpload, categorieModal2)
 
-imgSelectandPreview(fileUploadInput, fileUploadLabel)
 setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds)
-
-// FormData sur le bouton Valider
-// Penser à remettre les deux class .disabled quand ça fonctionne
-
-// const formSendWork = document.getElementById("form-send-work")
-// setSendWorkListenerAndSend(btnSendWork, formSendWork)
+imgSelectandPreview(fileUploadInput, fileUploadLabel)

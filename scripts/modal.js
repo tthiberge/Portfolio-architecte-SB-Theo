@@ -3,7 +3,8 @@ import { deleteWork, sendWork } from "./api-fetch.js";
 // Bien définir une variable à un higher scope pour qu'elle soit accessible à toutes les fonctions de la page
 let modalFromIndex
 const formUpload = document.getElementById("form-send-work")
-let sendWorkHandler = () => sendWork(formUpload, sendWorkHandler);
+let sendWorkHandler = () => sendWork(formUpload, sendWorkHandler)
+let currentHandler
 
 export function setModal(modal) {
   // Assigner à notre variable anonyme la valeur issue réelle issue de index.js
@@ -182,6 +183,7 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     // Le retour à la modale 1 désactive le bouton permettant de poster un nouveau projet
     // et réinitialise les inputs du formulaire
     btnSendWork.classList.add("disabled")
+    btnSendWork.disabled = false
 
     const fileUploadInputs = document.querySelectorAll(".file-upload")
     console.log(fileUploadInputs);
@@ -234,19 +236,30 @@ export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, ti
   && fileUploadLabel.firstElementChild.tagName === "IMG") {
     // Le bouton pour envoyer le projet passe de gris à vert
     btnSendWork.classList.remove("disabled")
+    btnSendWork.disabled = false
 
     // Remettre le listener quand c'est bien rempli
     btnSendWork.addEventListener("click", sendWorkHandler)
     } else {
       // Le bouton pour envoyer le projet passe de vert à gris
       btnSendWork.classList.add("disabled")
+      btnSendWork.disabled = true
+
     };
   })
 }
 
 export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
+  // Si un gestionnaire est déjà défini, retirez-le avant d'en ajouter un nouveau
+  if (currentHandler) {
+    fileUploadInput.removeEventListener("change", currentHandler);
+  }
+
+  // Stockez le gestionnaire actuel dans la variable currentHandler
+  currentHandler = handleFileChange(fileUploadLabel);
+
+  // Ajoutez le gestionnaire d'événement
   fileUploadInput.addEventListener("change", handleFileChange(fileUploadLabel))
-  // fileUploadInput.removeEventListener("change", handleFileChange);
 }
 
 function handleFileChange(fileUploadLabel) {

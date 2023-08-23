@@ -119,6 +119,7 @@ export async function sendWork(formUpload) {
       // Donne un effet visuel de désactivation si l'envoi est réussi
       const btnSendWork = document.querySelector(".modal-send-work")
       btnSendWork.classList.add("disabled")
+      btnSendWork.disabled = true
 
       // Crée un message de succès puis supprime cet élément au bout de 3 secondes au cas où la personne décide de rajouter un nouvel élement depuis cette page, sans passer par la modale 1
       createAndRemoveMessage()

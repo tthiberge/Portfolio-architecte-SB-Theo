@@ -87,12 +87,10 @@ export async function deleteWork(id) {
 export function setSendWorkListenerAndSend(btnSendWork, formUpload) {
   sendWorkHandler = () => sendWork(btnSendWork, formUpload)
   btnSendWork.addEventListener("click", sendWorkHandler)
+  console.log("Listener ajouté sur btnSendWork");
 }
 
-async function sendWork(btnSendWork, formUpload) {
-  // J'enlève le listener précédent pour éviter les cumuls
-  btnSendWork.removeEventListener("click", sendWorkHandler)
-
+export async function sendWork(formUpload) {
   // Je crée le FormData
   let formSendWorkData = new FormData(formUpload)
 
@@ -127,15 +125,12 @@ async function sendWork(btnSendWork, formUpload) {
       displayGridWorks(worksData)
       displayGridWorksInModal(worksData)
 
-      const btnSuccessfulWorkSent = document.createElement("p")
-      btnSuccessfulWorkSent.classList.add("modal-successful-sent-work")
-      btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !"
-
-      const modalContent2 = document.querySelector(".modal-content-2")
-      modalContent2.appendChild(btnSuccessfulWorkSent)
-
+      // Donne un effet visuel de désactivation si l'envoi est réussi
       const btnSendWork = document.querySelector(".modal-send-work")
       btnSendWork.classList.add("disabled")
+
+      // Crée un message de succès puis supprime cet élément au bout de 3 secondes au cas où la personne décide de rajouter un nouvel élement depuis cette page, sans passer par la modale 1
+      createAndRemoveMessage()
 
       } else {
         throw new Error ("L'image est trop volumineuse")
@@ -147,4 +142,17 @@ async function sendWork(btnSendWork, formUpload) {
   } catch (error) {
     console.error('Erreur détectée:', error);
   }
+}
+
+function createAndRemoveMessage() {
+  const btnSuccessfulWorkSent = document.createElement("p");
+  btnSuccessfulWorkSent.classList.add("modal-successful-sent-work");
+  btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !";
+
+  const modalContent2 = document.querySelector(".modal-content-2");
+  modalContent2.appendChild(btnSuccessfulWorkSent);
+
+  setTimeout(() => {
+      btnSuccessfulWorkSent.remove();
+  }, 3000);
 }

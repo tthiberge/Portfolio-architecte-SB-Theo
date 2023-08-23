@@ -95,17 +95,11 @@ export async function sendWork(formUpload) {
   let formSendWorkData = new FormData(formUpload)
 
   const token = getToken()
-  console.log(token);
-
-  console.log(formSendWorkData.getAll("image"));
   const file = formSendWorkData.get("image")
 
   try {
    if (file && file.type.startsWith('image/')) {
-    console.log("C'est une image!");
       if (file.size <= 4 * 1024 * 1024) {
-        console.log("Mon fichier fait moins de 4Mo nananère");
-
       const responseSendWork = await fetch(`http://localhost:5678/api/works`, {
         method: 'POST',
         headers: {
@@ -113,8 +107,6 @@ export async function sendWork(formUpload) {
         },
         body: formSendWorkData
       })
-
-      console.log(responseSendWork.ok);
 
       const responseSendWorkData = await responseSendWork.json();
       console.log(responseSendWorkData);
@@ -133,9 +125,11 @@ export async function sendWork(formUpload) {
       createAndRemoveMessage()
 
       } else {
+        // Throw une erreur au cas où la personne a quand même réussi à lancer l'envoi malgré les critères à valider dans la fonction setListenerSendWork
         throw new Error ("L'image est trop volumineuse")
       }
     } else {
+      // Throw une erreur au cas où la personne a quand même réussi à lancer l'envoi malgré les critères à valider dans la fonction setListenerSendWork
       throw new Error ("Le document chargé n'est pas une image. Réessayez avec le bon format de fichier")
     }
 
@@ -145,6 +139,7 @@ export async function sendWork(formUpload) {
 }
 
 function createAndRemoveMessage() {
+  // Création de l'élément p, ajout au DOM et suppression au bout de 3 secondes
   const btnSuccessfulWorkSent = document.createElement("p");
   btnSuccessfulWorkSent.classList.add("modal-successful-sent-work");
   btnSuccessfulWorkSent.innerText = "Projet ajouté avec succès !";

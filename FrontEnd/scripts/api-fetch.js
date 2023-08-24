@@ -90,6 +90,8 @@ export async function sendWork(formUpload) {
 
   const token = getToken()
   const file = formSendWorkData.get("image")
+  console.log(token);
+  console.log(file);
 
   try {
    if (file && file.type.startsWith('image/')) {

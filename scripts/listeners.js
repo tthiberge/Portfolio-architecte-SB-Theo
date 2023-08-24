@@ -72,7 +72,7 @@ export async function handleFormSubmit(event) {
     processLoginResponse(loginResponse)
 
     // Renvoyer vers la page projet
-    window.location.href = './index.html'
+    window.location.href = 'https://tthiberge.github.io/Portfolio-architecte-SB-Theo/index.html'
 
 
   } catch (error) {

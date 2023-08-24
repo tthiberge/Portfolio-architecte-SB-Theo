@@ -72,7 +72,7 @@ export async function handleFormSubmit(event) {
     processLoginResponse(loginResponse)
 
     // Renvoyer vers la page projet
-    window.location.href = 'http://localhost:5501/index.html'
+    window.location.href = './index.html'
 
 
   } catch (error) {

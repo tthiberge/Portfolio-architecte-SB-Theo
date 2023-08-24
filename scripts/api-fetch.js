@@ -90,8 +90,6 @@ export async function sendWork(formUpload) {
 
   const token = getToken()
   const file = formSendWorkData.get("image")
-  console.log(token);
-  console.log(file);
 
   try {
    if (file && file.type.startsWith('image/')) {
@@ -118,7 +116,7 @@ export async function sendWork(formUpload) {
       displayGridWorks(worksData)
       displayGridWorksInModal(worksData)
 
-      // Donne un effet visuel de désactivation si l'envoi est réussi
+      // Donne un effet visuel de désactivation si l'envoi est réussi + vraiment le désactiver
       const btnSendWork = document.querySelector(".modal-send-work")
       btnSendWork.classList.add("disabled")
       btnSendWork.disabled = true

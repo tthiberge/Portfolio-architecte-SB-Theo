@@ -110,7 +110,7 @@ async function loginUser(loginDetails) {
 
   if (!response.ok) {
     const errorData = await response.json()
-    throw new Error(`La requête n'a pu aboutir. \nLe serveur indique '${errorData.message}'. \nMerci de vérifier vos identifiants et de cliquer sur 'Mot de passe oublié' au besoin`)
+    throw new Error(`La requête n'a pu aboutir. \nLe serveur indique '${errorData.message}'. \nErreur dans l’identifiant ou le mot de passe. \nMerci de vérifier vos identifiants et de cliquer sur 'Mot de passe oublié' au besoin`)
   }
 
   return response.json()
@@ -123,7 +123,7 @@ function processLoginResponse(loginResponse) {
    const userIdStringified = JSON.stringify(loginResponse.userId)
    window.localStorage.setItem("userId", userIdStringified)
 
-   // Pour vérifier que je l'ai bien (même si je peux le voir dans l'inspecteur)
+   // Pour vérifier que je l'ai bien (même si je peux le voir dans l'inspecteur -> Appli)
    const tokenSaved = window.localStorage.getItem("token")
    console.log(`There is a saved token whose value is ${tokenSaved}`);
 }

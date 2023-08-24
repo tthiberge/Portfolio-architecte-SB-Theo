@@ -19,6 +19,7 @@ displayGridWorks(worksData)
 
 // Récupérer les catégories (avec option localStorage)
 let categoriesData = await getCategoriesData()
+// Option non suivie, mapper les travauxx reçus et recrér un Set des catégories
 
 // Afficher les filtres
 displayFilters(categoriesData)

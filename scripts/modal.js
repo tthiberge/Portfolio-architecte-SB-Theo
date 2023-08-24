@@ -313,3 +313,6 @@ function handleFileChange(fileUploadLabel) {
     }
   }
 }
+
+
+// Deploiement sur gh pages

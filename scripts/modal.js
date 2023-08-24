@@ -215,6 +215,14 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
       })
     }
   })
+
+  titreModal2.addEventListener("input", function(){
+    if (titreModal2.value === "") {
+      modalTitleEmptyWarning.style.color = "red"
+    } else {
+        modalTitleEmptyWarning.style.color = "white"
+      }
+  })
 }
 
 export function displayBottomOfModal2(modalContent2) {

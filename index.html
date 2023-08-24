@@ -11,15 +11,15 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/style-modal.css">
-  <script type="module" src="scripts/index.js" defer></script>
-  <script type="module" src="scripts/modal.js" defer></script>
+  <script type="module" src="scripts/index.js"></script>
+  <script type="module" src="scripts/modal.js"></script>
 </head>
 <body>
 <header>
   <a href="/index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
   <nav>
     <ul>
-      <a href="/index.html"><li>projets</li></a>
+      <li><a href="/index.html">projets</a></li>
 			<li>contact</li>
 			<li><a href="/login.html">login</a></li>
 			<li><a href="#" class="logout hidden">log OUT</a></li>
@@ -29,6 +29,7 @@
 </header>
 <main>
 	<section id="introduction">
+    <h2 class="hidden">Section d'introduction</h2>
     <div>
       <figure>
         <img src="./assets/images/sophie-bluel.png" alt="">
@@ -85,11 +86,12 @@
       <i class="fa-solid fa-xmark closeBtn"></i>
       <p class="modal-title">Ajout Photo</p>
       <section class="form form-upload">
+        <h2 class="hidden">Formulaire de chargement</h2>
         <form action="#" method="post" id="form-send-work">
           <label for="fileUpload" class="file-upload-label custom-file-upload" id="file-upload-label">
             <i class="fa-regular fa-image file-upload-img"></i>
-            <p class="file-upload-add">+ Ajouter photo</p>
-            <p class="file-upload-authorized">jpg, png : 4mo max</p>
+            <span class="file-upload-add">+ Ajouter photo</span>
+            <span class="file-upload-authorized">jpg, png : 4mo max</span>
           </label>
           <input type="file" id="fileUpload" name="image" class="file-upload" accept="image/png, image/jpeg" >
 
@@ -99,6 +101,7 @@
 
           <label for="category">Catégorie</label>
           <select name="category" id="category" required>
+            <option disabled selected value="">Please select a category</option>
           </select>
       </form>
       </section>

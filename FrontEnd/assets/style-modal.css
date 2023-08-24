@@ -269,3 +269,15 @@
   font-weight: 400;
   line-height: normal;
 }
+
+.div-for-listener-send-work {
+
+}
+
+.modal-title-empty-warning {
+  color: red;
+  padding-top: 8px;
+  font-size: 12px;
+  
+
+}

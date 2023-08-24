@@ -143,10 +143,12 @@ export function setListenerTrashIcon(elementThatIsNotRefreshed) {
   })
 }
 
-export function setModalsListeners(arrayOfCategories, modalContent, modalContent2, formUpload, categorieModal2) {
+export function setModalsListeners(arrayOfCategories, modalContent, modalContent2, categorieModal2, titreModal2) {
   // Ciblage des boutons significatifs sur les modales
   const btnAddPicture = modalContent.querySelector(".modal-add-picture")
   const btnArrowBack = document.querySelector(".arrowBackBtn")
+  const modalTitleEmptyWarning = document.querySelector(".modal-title-empty-warning ")
+
 
   //Réinitialisation du menu déroulant de la modale 2
   categorieModal2.innerHTML = ""
@@ -169,6 +171,9 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
   btnAddPicture.addEventListener("click", function() {
     modalContent2.classList.remove("hidden")
     modalContent.classList.add("hidden")
+
+    modalTitleEmptyWarning.style.color = "white"
+    categorieModal2.firstElementChild.selected = true
   })
 
   // Passage de la modale 2 à la modale 1
@@ -195,8 +200,9 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     <p class="file-upload-authorized">jpg, png : 4mo max</p>
     `
 
-    formUpload.children[3].value = ""
-    formUpload.children[5].value = ""
+    titreModal2.value = ""
+    modalTitleEmptyWarning.style.color = "red"
+    categorieModal2.value = ""
 
     // Réinitialisation du message "Projet ajouté avec succès" pour que les messages
     // ne s'accumulent pas - Prise en compte du cas où aucun projet n'a été chargé
@@ -215,6 +221,9 @@ export function displayBottomOfModal2(modalContent2) {
   const line = document.createElement("div")
   line.classList.add("modal-line-upload")
 
+  const divForListenerSendWork = document.createElement("div")
+  divForListenerSendWork.classList.add("div-for-listener-send-work")
+
   const btnSendWork = document.createElement("input")
   btnSendWork.setAttribute("type", "button")
   btnSendWork.classList.add("modal-send-work")
@@ -222,13 +231,15 @@ export function displayBottomOfModal2(modalContent2) {
   btnSendWork.value = "Valider"
 
   modalContent2.appendChild(line)
-  modalContent2.appendChild(btnSendWork)
+  modalContent2.appendChild(divForListenerSendWork)
+  divForListenerSendWork.appendChild(btnSendWork)
 }
 
 export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds) {
-  formUpload.addEventListener("change", function(){
+  formUpload.addEventListener("change", function(event){
   // Dès qu'il y a un change sur le formulaire:
   // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en restant sur la même modale
+  event.stopPropagation()
   btnSendWork.removeEventListener("click", sendWorkHandler)
 
   if (titreModal2.value !== ""

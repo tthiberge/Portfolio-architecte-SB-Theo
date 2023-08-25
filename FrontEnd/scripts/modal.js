@@ -148,7 +148,9 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
   const btnAddPicture = modalContent.querySelector(".modal-add-picture")
   const btnArrowBack = document.querySelector(".arrowBackBtn")
   const modalTitleEmptyWarning = document.querySelector(".modal-title-empty-warning ")
-
+  const btnSendWork = document.querySelector(".modal-send-work")
+  const btnCloseModal2 = modalContent2.querySelector(".closeBtn")
+  const fileUploadLabel = document.querySelector(".file-upload-label")
 
   //Réinitialisation du menu déroulant de la modale 2
   categorieModal2.innerHTML = ""
@@ -169,19 +171,16 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
 
   // Passage de la modale 1 à la modale 2
   btnAddPicture.addEventListener("click", function() {
-    modalContent2.classList.remove("hidden")
-    modalContent.classList.add("hidden")
+    showModal1HideModal2(modalContent2, modalContent)
 
     modalTitleEmptyWarning.style.color = "white"
     categorieModal2.firstElementChild.selected = true
   })
 
-  // Passage de la modale 2 à la modale 1
   btnArrowBack.addEventListener("click", function() {
-    modalContent.classList.remove("hidden")
-    modalContent2.classList.add("hidden")
+    // Passage de la modale 2 à la modale 1
+    showModal1HideModal2(modalContent, modalContent2)
 
-    const btnSendWork = document.querySelector(".modal-send-work")
     // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en passant d'une modale à l'autre
     btnSendWork.removeEventListener("click", sendWorkHandler)
 
@@ -190,30 +189,22 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
     btnSendWork.classList.add("disabled")
     btnSendWork.disabled = false
 
-    const fileUploadInputs = document.querySelectorAll(".file-upload")
-    console.log(fileUploadInputs);
-    const fileUploadLabel = document.querySelector(".file-upload-label")
-    console.log(fileUploadLabel);
-    fileUploadLabel.innerHTML = `
-    <i class="fa-regular fa-image file-upload-img"></i>
-    <p class="file-upload-add">+ Ajouter photo</p>
-    <p class="file-upload-authorized">jpg, png : 4mo max</p>
-    `
+    resetFormInputs(fileUploadLabel, titreModal2, modalTitleEmptyWarning, categorieModal2)
 
-    titreModal2.value = ""
-    modalTitleEmptyWarning.style.color = "red"
-    categorieModal2.value = ""
+    // Réinitialisation du message "Projet ajouté avec succès" pour que les messages ne s'accumulent pas - Prise en compte du cas où aucun projet n'a été chargé
+    resetSuccessfulUploadMessage()
+  })
 
-    // Réinitialisation du message "Projet ajouté avec succès" pour que les messages
-    // ne s'accumulent pas - Prise en compte du cas où aucun projet n'a été chargé
-    const btnsSuccessfulWorkSent =  document.querySelectorAll(".modal-successful-sent-work")
-    console.log(btnsSuccessfulWorkSent);
-    if (btnsSuccessfulWorkSent) {
-      btnsSuccessfulWorkSent.forEach((btn) => {
-        btn.remove()
-        console.log("removed")
-      })
-    }
+  btnCloseModal2.addEventListener("click", function() {
+    showModal1HideModal2(modalContent, modalContent2)
+    btnSendWork.removeEventListener("click", sendWorkHandler)
+
+    // Quitter la modale 2 désactive le bouton permettant de poster un nouveau projet et réinitialise les inputs du formulaire
+    btnSendWork.classList.add("disabled")
+    btnSendWork.disabled = true
+
+    resetFormInputs(fileUploadLabel, titreModal2, modalTitleEmptyWarning, categorieModal2)
+    resetSuccessfulUploadMessage()
   })
 
   titreModal2.addEventListener("input", function(){
@@ -294,8 +285,8 @@ function handleFileChange(fileUploadLabel) {
     // Lecture côté client de l'image
     const file = event.target.files[0]
 
-    if (file && file.type.startsWith('image/')) {
-      if (file.size <= 4 * 1024 * 1024) {
+    if (existAndIsImage(file)) {
+      if (respectsSizeLimit(file)) {
         const reader = new FileReader()
 
         reader.onload = function(e) {
@@ -323,4 +314,37 @@ function handleFileChange(fileUploadLabel) {
 }
 
 
-// Deploiement sur gh pages
+function showModal1HideModal2(modal1, modal2) {
+  modal1.classList.remove("hidden")
+  modal2.classList.add("hidden")
+}
+
+function resetFormInputs(fileUploadLabel, titreModal2, modalTitleEmptyWarning, categorieModal2) {
+  fileUploadLabel.innerHTML = `
+  <i class="fa-regular fa-image file-upload-img"></i>
+  <p class="file-upload-add">+ Ajouter photo</p>
+  <p class="file-upload-authorized">jpg, png : 4mo max</p>
+  `
+  titreModal2.value = ""
+  modalTitleEmptyWarning.style.color = "red"
+  categorieModal2.value = ""
+}
+
+function resetSuccessfulUploadMessage() {
+  const btnsSuccessfulWorkSent =  document.querySelectorAll(".modal-successful-sent-work")
+  console.log(btnsSuccessfulWorkSent);
+  if (btnsSuccessfulWorkSent) {
+    btnsSuccessfulWorkSent.forEach((btn) => {
+      btn.remove()
+      console.log("removed")
+    })
+  }
+}
+
+export function existAndIsImage(file){
+  return (file && file.type.startsWith('image/'))
+}
+
+export function respectsSizeLimit(file){
+  return (file.size <= 4 * 1024 * 1024)
+}

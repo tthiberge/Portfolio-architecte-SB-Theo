@@ -58,3 +58,5 @@ setModalsListeners(categoriesData, modalContent, modalContent2, categorieModal2,
 
 setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds)
 imgSelectandPreview(fileUploadInput, fileUploadLabel)
+
+

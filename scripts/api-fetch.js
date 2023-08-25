@@ -1,9 +1,7 @@
 import { displayGridWorks} from "./displayElement.js";
-import { displayGridWorksInModal } from "./modal.js";
+import { displayGridWorksInModal, existAndIsImage, respectsSizeLimit } from "./modal.js";
 
 let worksData
-let sendWorkHandler = () => {};
-
 
 export async function getWorksData() {
     const responseWorks = await fetch("http://localhost:5678/api/works")
@@ -92,8 +90,8 @@ export async function sendWork(formUpload) {
   const file = formSendWorkData.get("image")
 
   try {
-   if (file && file.type.startsWith('image/')) {
-      if (file.size <= 4 * 1024 * 1024) {
+    if (existAndIsImage(file)) {
+      if (respectsSizeLimit(file)) {
       const responseSendWork = await fetch(`http://localhost:5678/api/works`, {
         method: 'POST',
         headers: {

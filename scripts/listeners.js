@@ -1,4 +1,6 @@
-export async function setFilterListener(displayFunction, arrayOfWorks) {
+import { displayGridWorks } from "./displayElement.js";
+
+export async function setFilterListener(arrayOfWorks) {
   const filterItems = document.querySelectorAll(".filters button")
 
   for (let i = 0; i < filterItems.length; i++) {
@@ -16,13 +18,13 @@ export async function setFilterListener(displayFunction, arrayOfWorks) {
       filterItem.classList.add("filters-clicked")
 
       if (event.target.innerText === "Tous") {
-        displayFunction(arrayOfWorks)
+        displayGridWorks(arrayOfWorks)
 
       } else {
         const worksFiltered = arrayOfWorks.filter(function (work) {
           return work.category.name === event.target.innerText
         })
-        displayFunction(worksFiltered)
+        displayGridWorks(worksFiltered)
       }
     })
   }

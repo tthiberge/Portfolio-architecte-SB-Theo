@@ -32,9 +32,8 @@ export async function setLogoutListnenerfromHomepage(removeModify, removeLogout)
   const btnLogout = document.querySelector(".logout")
 
   btnLogout.addEventListener("click", function() {
-    if (window.localStorage.getItem("userId") && window.localStorage.getItem("token")) {
-      window.localStorage.removeItem("userId")
-      window.localStorage.removeItem("token")
+    if (isConnected()) {
+      clearLocalStorage()
     }
 
     removeModify()
@@ -47,9 +46,8 @@ export async function setLogoutListnenerfromLogin(removeLogout) {
   const btnLogout = document.querySelector(".logout")
 
   btnLogout.addEventListener("click", function() {
-    if (window.localStorage.getItem("token") && window.localStorage.getItem("token")) {
-      window.localStorage.removeItem("userId")
-      window.localStorage.removeItem("token")
+    if (isConnected()) {
+      clearLocalStorage()
     }
 
     removeLogout()
@@ -131,4 +129,13 @@ function processLoginResponse(loginResponse) {
 function displayErrorMessageLogin(error) {
   const warningMessage = document.querySelector(".warning")
   warningMessage.innerText = error.message
+}
+
+function isConnected() {
+  return (window.localStorage.getItem("userId") && window.localStorage.getItem("token"))
+}
+
+function clearLocalStorage() {
+  window.localStorage.removeItem("userId")
+  window.localStorage.removeItem("token")
 }

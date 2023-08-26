@@ -67,39 +67,8 @@ export function displayGridWorksInModal(arrayOfWorks) {
   // Balayer tous les éléments récupérés sur l'API
   for (let i = 0; i < arrayOfWorks.length; i++) {
     const work = arrayOfWorks[i];
+    createCardAndAppendToGridInModal(modalGrid, work)
 
-    // Creating the elements of my card
-    const figureWork = document.createElement("figure")
-    figureWork.classList.add("figure-work")
-    figureWork.dataset.setId = work.id
-
-    const imgWork = document.createElement("img")
-    imgWork.src = work.imageUrl
-    imgWork.alt = work.title
-    imgWork.classList.add("img-work")
-
-    const figCaptionWork = document.createElement("figcaption")
-    figCaptionWork.innerText = "éditer"
-    figCaptionWork.classList.add("figcaption-work")
-
-    const trashIcon = document.createElement("i")
-    trashIcon.classList.add("fa-solid")
-    trashIcon.classList.add("fa-trash-can")
-    trashIcon.classList.add("trash-icon")
-    trashIcon.dataset.setId = work.id
-
-    const zoomIcon = document.createElement("i")
-    zoomIcon.classList.add("fa-solid")
-    zoomIcon.classList.add("fa-up-down-left-right")
-    zoomIcon.classList.add("zoom-icon")
-    zoomIcon.style.display = "none"
-
-    // Appending the elements of my card
-    modalGrid.appendChild(figureWork)
-    figureWork.appendChild(imgWork)
-    figureWork.appendChild(figCaptionWork)
-    figureWork.appendChild(trashIcon)
-    figureWork.appendChild(zoomIcon)
   }
 }
 
@@ -156,18 +125,8 @@ export function setModalsListeners(arrayOfCategories, modalContent, modalContent
   categorieModal2.innerHTML = ""
 
   // Création du menu déroulant de la modale 2
-  const pleaseSelect = document.createElement("option")
-  pleaseSelect.innerText = "Please select a category"
-  pleaseSelect.disabled = true
-  pleaseSelect.selected = true
-  categorieModal2.appendChild(pleaseSelect)
-
-  arrayOfCategories.forEach(cat => {
-    const category = document.createElement("option")
-    category.innerText = cat.name
-    category.value = cat.id // Ce qui sera envoyé dans le FormData
-    categorieModal2.appendChild(category)
-  })
+  createPleaseSelect(categorieModal2)
+  createSelectDropdown(arrayOfCategories, categorieModal2)
 
   // Passage de la modale 1 à la modale 2
   btnAddPicture.addEventListener("click", function() {
@@ -238,7 +197,7 @@ export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, ti
   formUpload.addEventListener("change", function(event){
   // Dès qu'il y a un change sur le formulaire:
   // Enlever le listener sur BtnSendWork pour éviter les doublons à chaque fois que le formulaire est "bien" rempli en restant sur la même modale
-  event.stopPropagation()
+  // event.stopPropagation()
   btnSendWork.removeEventListener("click", sendWorkHandler)
 
   if (titreModal2.value !== ""
@@ -260,15 +219,15 @@ export function setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, ti
 }
 
 export function imgSelectandPreview(fileUploadInput, fileUploadLabel) {
-  // Si un gestionnaire est déjà défini, retirez-le avant d'en ajouter un nouveau
+  // Si un gestionnaire est déjà défini, le retirer avant d'en ajouter un nouveau
   if (currentHandler) {
     fileUploadInput.removeEventListener("change", currentHandler);
   }
 
-  // Stockez le gestionnaire actuel dans la variable currentHandler
+  // Stocker le gestionnaire actuel dans la variable currentHandler
   currentHandler = handleFileChange(fileUploadLabel);
 
-  // Ajoutez le gestionnaire d'événement
+  // Ajouter le gestionnaire d'événement
   fileUploadInput.addEventListener("change", handleFileChange(fileUploadLabel))
 }
 
@@ -288,31 +247,71 @@ function handleFileChange(fileUploadLabel) {
     if (existAndIsImage(file)) {
       if (respectsSizeLimit(file)) {
         const reader = new FileReader()
-
         reader.onload = function(e) {
           uploadImgPreview.src = e.target.result
         }
-
         reader.readAsDataURL(file)
-        console.log(fileUploadLabel.firstElementChild.tagName);
-
       } else {
-        fileUploadLabel.innerHTML = `<p> Image trop volumineuse: ${Math.round(file.size / (1024 * 1024))} Mo</p>
-        <p> Taille maximale de 4 Mo </p>
-        <p> Compressez la photo et réessayez </p>`
-        fileUploadLabel.style.color = "red"
-        console.log("L'image est trop volumineuse !");
-        // alert("L'image est trop volumineuse !");
+        wrongSizeOfFile(fileUploadLabel, file)
       }
     } else {
-      fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
-      <p>Merci de choisir une image </p>`
-      fileUploadLabel.style.color = "red"
-      console.log("Je n'ai pas pu afficher le preview, ce n'est pas une image");
+      wrongExtensionOfFile(fileUploadLabel)
     }
   }
 }
 
+// Functions used above
+function createCardAndAppendToGridInModal(modalGrid, work) {
+  // Creating the elements of my card
+  const figureWork = document.createElement("figure")
+  figureWork.classList.add("figure-work")
+  figureWork.dataset.setId = work.id
+
+  const imgWork = document.createElement("img")
+  imgWork.src = work.imageUrl
+  imgWork.alt = work.title
+  imgWork.classList.add("img-work")
+
+  const figCaptionWork = document.createElement("figcaption")
+  figCaptionWork.innerText = "éditer"
+  figCaptionWork.classList.add("figcaption-work")
+
+  const trashIcon = document.createElement("i")
+  trashIcon.classList.add("fa-solid")
+  trashIcon.classList.add("fa-trash-can")
+  trashIcon.classList.add("trash-icon")
+  trashIcon.dataset.setId = work.id
+
+  const zoomIcon = document.createElement("i")
+  zoomIcon.classList.add("fa-solid")
+  zoomIcon.classList.add("fa-up-down-left-right")
+  zoomIcon.classList.add("zoom-icon")
+  zoomIcon.style.display = "none"
+
+  // Appending the elements of my card
+  modalGrid.appendChild(figureWork)
+  figureWork.appendChild(imgWork)
+  figureWork.appendChild(figCaptionWork)
+  figureWork.appendChild(trashIcon)
+  figureWork.appendChild(zoomIcon)
+}
+
+function createPleaseSelect(categorieModal2){
+  const pleaseSelect = document.createElement("option")
+  pleaseSelect.innerText = "Please select a category"
+  pleaseSelect.disabled = true
+  pleaseSelect.selected = true
+  categorieModal2.appendChild(pleaseSelect)
+}
+
+function createSelectDropdown(arrayOfCategories, categorieModal2) {
+  arrayOfCategories.forEach(cat => {
+    const category = document.createElement("option")
+    category.innerText = cat.name
+    category.value = cat.id // Ce qui sera envoyé dans le FormData
+    categorieModal2.appendChild(category)
+  })
+}
 
 function showModal1HideModal2(modal1, modal2) {
   modal1.classList.remove("hidden")
@@ -339,6 +338,22 @@ function resetSuccessfulUploadMessage() {
       console.log("removed")
     })
   }
+}
+
+function wrongSizeOfFile(fileUploadLabel, file) {
+  fileUploadLabel.innerHTML = `<p> Image trop volumineuse: ${Math.round(file.size / (1024 * 1024))} Mo</p>
+  <p> Taille maximale de 4 Mo </p>
+  <p> Compressez la photo et réessayez </p>`
+  fileUploadLabel.style.color = "red"
+  console.log("L'image est trop volumineuse !");
+  // alert("L'image est trop volumineuse !");
+}
+
+function wrongExtensionOfFile(fileUploadLabel) {
+  fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
+  <p>Merci de choisir une image </p>`
+  fileUploadLabel.style.color = "red"
+  console.log("Je n'ai pas pu afficher le preview, ce n'est pas une image");
 }
 
 export function existAndIsImage(file){

@@ -7,18 +7,7 @@ export function displayGridWorks(arrayOfWorks) {
   for (let i = 0; i < arrayOfWorks.length; i++) {
     const work = arrayOfWorks[i];
 
-    // Creating the elements of my card
-    const figureWork = document.createElement("figure")
-    const imgWork = document.createElement("img")
-    imgWork.src = work.imageUrl
-    imgWork.alt = work.title
-    const figCaptionWork = document.createElement("figcaption")
-    figCaptionWork.innerText = work.title
-
-    // Appending the elemnts of my card
-    galleryWorks.appendChild(figureWork)
-    figureWork.appendChild(imgWork)
-    figureWork.appendChild(figCaptionWork)
+    createCardAndAppendToGrid(galleryWorks, work)
   }
 }
 
@@ -96,4 +85,20 @@ export async function removeModify() {
 export async function removeLogout() {
   const btnLogout = document.querySelector(".logout")
   btnLogout.classList.add("hidden")
+}
+
+
+function createCardAndAppendToGrid(galleryElement, work) {
+  // Creating the elements of my card
+  const figureWork = document.createElement("figure")
+  const imgWork = document.createElement("img")
+  imgWork.src = work.imageUrl
+  imgWork.alt = work.title
+  const figCaptionWork = document.createElement("figcaption")
+  figCaptionWork.innerText = work.title
+
+  // Appending the elemnts of my card
+  galleryElement.appendChild(figureWork)
+  figureWork.appendChild(imgWork)
+  figureWork.appendChild(figCaptionWork)
 }

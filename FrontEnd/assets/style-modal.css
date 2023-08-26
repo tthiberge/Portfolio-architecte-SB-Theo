@@ -26,6 +26,7 @@
   border-radius: 10px;
   padding-top: 60px;
   padding-bottom: 48px;
+  overflow: scroll;
 }
 
 .modal-content-2 {

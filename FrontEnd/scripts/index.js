@@ -26,7 +26,7 @@ displayFilters(categoriesData)
 const categoriesIds = categoriesData.map(category => category.id)
 
 // Déployer les eventlisteners sur tous ces boutons
-setFilterListener(displayGridWorks, worksData);
+setFilterListener(worksData);
 setLogoutListnenerfromHomepage (removeModify, removeLogout)
 
 // MODAL 1 + MODAL 2
@@ -58,5 +58,3 @@ setModalsListeners(categoriesData, modalContent, modalContent2, categorieModal2,
 
 setListenerSendWork(btnSendWork, formUpload, fileUploadLabel, titreModal2, categorieModal2, categoriesIds)
 imgSelectandPreview(fileUploadInput, fileUploadLabel)
-
-

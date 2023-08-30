@@ -331,8 +331,8 @@ function resetFormInputs(fileUploadLabel, titreModal2, modalTitleEmptyWarning, c
 function resetSuccessfulUploadMessage() {
   const btnsSuccessfulWorkSent =  document.querySelectorAll(".modal-successful-sent-work")
   if (btnsSuccessfulWorkSent) {
-    btnsSuccessfulWorkSent.forEach((btn) => {
-      btn.remove()
+		btnsSuccessfulWorkSent.forEach((btn) => {
+        btn.remove()
     })
   }
 }

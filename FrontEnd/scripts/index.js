@@ -12,7 +12,7 @@ displayLogoutIfConnected()
 
 // Récupérer mes travaux
 let worksData = await getWorksData()
-console.log(worksData);
+// console.log(worksData);
 
 // Afficher la grille de travaux sur la homepage
 displayGridWorks(worksData)

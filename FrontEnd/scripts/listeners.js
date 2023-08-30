@@ -66,7 +66,6 @@ export async function handleFormSubmit(event) {
 
     // Envoyer la requête et récupérer la réponse
     const loginResponse = await loginUser(loginDetails)
-    console.log(loginResponse);
 
     // Enregistrer le token dans le localStorage
     processLoginResponse(loginResponse)

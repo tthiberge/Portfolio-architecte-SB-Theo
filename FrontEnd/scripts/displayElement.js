@@ -34,7 +34,6 @@ export async function displayFilters(arrayOfCategories) {
 export function displayModifyIfConnected () {
   if (window.localStorage.getItem("token")) {
     const token = JSON.parse(window.localStorage.getItem("token"))
-    // console.log(token)
     if (token  !== null) {
       const btnLogout = document.querySelector(".logout")
       btnLogout.classList.remove("hidden")
@@ -68,8 +67,6 @@ export function removeFiltersIfConnected () {
     if (token  !== null) {
       const filters = document.querySelector(".filters")
       filters.classList.add("hidden")
-    } else {
-      console.log("Je laisse les boutons de filtrage car erreur de comparaison de token");
     }
   }
 }

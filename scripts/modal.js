@@ -33,7 +33,6 @@ function openModal() {
   // Protection depuis le serveur, et pas seulement de l'affichage côté serveur (listeners.js)
   if (window.localStorage.getItem("token")) {
     const token = JSON.parse(window.localStorage.getItem("token"))
-    // console.log(token)
     if (token  !== null) {
       modalFromIndex.style.display = 'block';
 
@@ -331,11 +330,9 @@ function resetFormInputs(fileUploadLabel, titreModal2, modalTitleEmptyWarning, c
 
 function resetSuccessfulUploadMessage() {
   const btnsSuccessfulWorkSent =  document.querySelectorAll(".modal-successful-sent-work")
-  console.log(btnsSuccessfulWorkSent);
   if (btnsSuccessfulWorkSent) {
     btnsSuccessfulWorkSent.forEach((btn) => {
       btn.remove()
-      console.log("removed")
     })
   }
 }
@@ -345,7 +342,6 @@ function wrongSizeOfFile(fileUploadLabel, file) {
   <p> Taille maximale de 4 Mo </p>
   <p> Compressez la photo et réessayez </p>`
   fileUploadLabel.style.color = "red"
-  console.log("L'image est trop volumineuse !");
   // alert("L'image est trop volumineuse !");
 }
 
@@ -353,7 +349,6 @@ function wrongExtensionOfFile(fileUploadLabel) {
   fileUploadLabel.innerHTML = `<p> Mauvais type de fichier</p>
   <p>Merci de choisir une image </p>`
   fileUploadLabel.style.color = "red"
-  console.log("Je n'ai pas pu afficher le preview, ce n'est pas une image");
 }
 
 export function existAndIsImage(file){

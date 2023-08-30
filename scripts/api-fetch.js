@@ -21,11 +21,10 @@ export async function getCategoriesData() {
 
   if (categoriesData === null) {
     // Dans ce cas, appel à l'API
-    console.log("Le localStorage des catégories était vide, il a fallu fetcher l'API");
+    // console.log("Le localStorage des catégories était vide, il a fallu fetcher l'API");
 
     const responseCategories = await fetch("http://localhost:5678/api/categories")
     const categoriesData = await responseCategories.json()
-    console.log(categoriesData);
 
     // Une fois mis à jour, j'enregistre quand même dans le localStorage
     // Transformation des catégories en JSON
@@ -60,8 +59,6 @@ export async function deleteWork(id) {
         'Content-Type': 'application/json'
       }
     })
-    // console.log(responseDelete.ok);
-    // console.log(responseDelete);
 
     if (responseDelete.ok) {
       if (responseDelete.status === 204){
@@ -73,7 +70,6 @@ export async function deleteWork(id) {
     }
 
     await getWorksData()
-    console.log(worksData);
     displayGridWorks(worksData)
     displayGridWorksInModal(worksData)
 
@@ -106,11 +102,8 @@ export async function sendWork(formUpload) {
       }
 
       const responseSendWorkData = await responseSendWork.json();
-      console.log(responseSendWorkData);
 
       await getWorksData()
-      console.log(worksData);
-
       displayGridWorks(worksData)
       displayGridWorksInModal(worksData)
 
@@ -127,7 +120,7 @@ export async function sendWork(formUpload) {
         throw new Error ("L'image est trop volumineuse")
       }
     } else {
-      // Throw une erreur au cas où la personne a quand même réussi à lancer l'envoi malgré les critères à valider dans la fonction setListenerSendWork
+      // Throw une erreur >au cas où la personne a quand même réussi à lancer l'envoi malgré les critères à valider dans la fonction setListenerSendWork
       throw new Error ("Le document chargé n'est pas une image. Réessayez avec le bon format de fichier")
     }
 

@@ -1,8 +1,8 @@
 // Importer les fonctions dont j'ai besoin
 import { getWorksData, getCategoriesData } from "./api-fetch.js";
-import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeModify, removeLogout } from "./displayElement.js";
-import { setFilterListener, setLogoutListnenerfromHomepage } from "./listeners.js";
-import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners, displayBottomOfModal2, imgSelectandPreview, setListenerSendWork } from "./modal.js";
+import { displayGridWorks, displayFilters, displayModifyIfConnected, displayLogoutIfConnected, removeModify, removeLogout } from "./displayElement.js"
+import { setFilterListener, setLogoutListnenerfromHomepage } from "./listeners.js"
+import { setModal, displayGridWorksInModal, setListenerZoomIcon, displayBottomOfModal, setListenerTrashIcon, setModalsListeners, displayBottomOfModal2, imgSelectandPreview, setListenerSendWork } from "./modal.js"
 
 
 // Afficher les boutons modifier sur la page projet si connecté (= si token présent en local storage)

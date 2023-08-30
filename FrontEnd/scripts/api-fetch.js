@@ -36,7 +36,7 @@ export async function getCategoriesData() {
 
   } else {
     // S'il y a quelque chose dans le localStorage, je le rends lisible
-    console.log("J'ai trouvé qqch dans le localStorage pour les Catégories, je n'ai pas appelé l'API");
+    // console.log("J'ai trouvé qqch dans le localStorage pour les Catégories, je n'ai pas appelé l'API");
 
     categoriesData = JSON.parse(categoriesData)
     return categoriesData

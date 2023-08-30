@@ -101,7 +101,7 @@ export async function sendWork(formUpload) {
         throw new Error(`La requête n'a pu aboutir. \nLe serveur indique '${errorData.message}'`)
       }
 
-      const responseSendWorkData = await responseSendWork.json();
+      // const responseSendWorkData = await responseSendWork.json();
 
       await getWorksData()
       displayGridWorks(worksData)

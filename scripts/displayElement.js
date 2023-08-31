@@ -53,6 +53,9 @@ export function displayLogoutIfConnected () {
   if (window.localStorage.getItem("token")) {
     const token = JSON.parse(window.localStorage.getItem("token"))
     if (token  !== null || token !== undefined) {
+      const btnLogin = document.querySelector(".login")
+      btnLogin.classList.add("hidden")
+      
       const btnLogout = document.querySelector(".logout")
       btnLogout.classList.remove("hidden")
     } else {

@@ -55,9 +55,15 @@ export function displayLogoutIfConnected () {
     if (token  !== null || token !== undefined) {
       const btnLogin = document.querySelector(".login")
       btnLogin.classList.add("hidden")
-      
+
       const btnLogout = document.querySelector(".logout")
       btnLogout.classList.remove("hidden")
+
+      const editBar = document.querySelector(".edit-bar")
+      editBar.classList.remove(".hidden")
+      editBar.classList.add(".flex")
+
+
     } else {
       console.log("Je ne display pas le bouton logout car erreur de comparaison de token");
     }

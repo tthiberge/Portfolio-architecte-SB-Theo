@@ -268,6 +268,10 @@ a:visited {
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
 .works-modify {
   font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -290,4 +294,36 @@ a:visited {
 
 .fa-pen-to-square {
   margin-right: 8px;
+}
+
+.edit-bar {
+  max-width: 1140px;;
+  background-color: black;
+  color: white;
+  height: 59px;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  font-family: Work Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.edit-bar-pill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	font-weight: 500;
+	color: black;
+	background-color: white;
+  margin-left: 21px ;
+	width: 216px;
+  height: 38px;
+	text-align: center;
+	border-radius: 60px ;
+  cursor: pointer;
 }
